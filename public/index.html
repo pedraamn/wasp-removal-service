@@ -3,308 +3,240 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Wasp Nest Removal &amp; Wasp Control Services</title>
-  <meta name="description" content="Straight answers on wasp nest removal, wasp control, and what affects typical cost." />
+  <title>Wasp Nest/Wasp Hive Removal &amp; Wasp Control Services</title>
+  <meta name="description" content="Straight answers on wasp nest removal and wasp control." />
   <link rel="canonical" href="/" />
   <style>
-:root {
-  --bg: #0b1b33;
-  --bg2: #102a4d;
-  --text: #0f172a;
-  --muted: #475569;
-  --card: #ffffff;
-  --line: #e2e8f0;
-  --cta: #f97316;
-  --cta-hover: #ea580c;
-  --max: 980px;
-  --radius: 14px;
+:root{
+  --bg:#ffffff;
+  --surface:#ffffff;
+  --ink:#0f172a;
+  --muted:#475569;
+  --line:#e2e8f0;
+  --accent:#0ea5e9;
+  --accent2:#0284c7;
+  --max:980px;
+  --radius:14px;
 }
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-  color: var(--text);
-  background: #f8fafc;
-  line-height: 1.55;
-  padding-top: 58px;
+*{box-sizing:border-box}
+html{color-scheme:light}
+body{
+  margin:0;
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  color:var(--ink);
+  background:var(--bg);
+  line-height:1.55;
 }
-
-.topbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 58px;
-  background: rgba(255,255,255,0.98);
-  border-bottom: 1px solid var(--line);
-  z-index: 999;
-  backdrop-filter: blur(8px);
+a{color:inherit}
+a:focus{outline:2px solid var(--accent); outline-offset:2px}
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(255,255,255,0.98);
+  border-bottom:1px solid var(--line);
 }
-
-.topbar-inner {
-  max-width: var(--max);
-  margin: 0 auto;
-  height: 100%;
-  padding: 0 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+.topbar-inner{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:12px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
 }
-
-.brand {
-  font-weight: 800;
-  text-decoration: none;
-  color: #0b1b33;
-  letter-spacing: -0.01em;
+.brand{
+  font-weight:800;
+  letter-spacing:-0.01em;
+  text-decoration:none;
 }
-
-.topbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 14px;
+.nav{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
 }
-
-.toplink {
-  text-decoration: none;
-  color: #0f172a;
-  font-size: 13px;
+.nav a{
+  text-decoration:none;
+  font-size:13px;
+  color:var(--muted);
+  padding:6px 8px;
+  border-radius:10px;
 }
-
-header {
-  background: linear-gradient(135deg, var(--bg), var(--bg2));
-  color: white;
-  padding: 44px 18px 34px;
+.nav a[aria-current="page"]{
+  color:var(--ink);
+  background:#f1f5f9;
+  border:1px solid var(--line);
 }
-
-.wrap { max-width: var(--max); margin: 0 auto; }
-
-.hero {
-  display: grid;
-  gap: 14px;
-  justify-items: center;
-  text-align: center;
+.btn{
+  display:inline-block;
+  padding:9px 12px;
+  background:var(--accent);
+  color:#fff;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:800;
+  font-size:13px;
+  border:1px solid transparent;
 }
-
-.hero h1 {
-  margin: 0;
-  font-size: 26px;
-  letter-spacing: -0.01em;
+.btn:focus{outline:2px solid var(--accent2); outline-offset:2px}
+header{
+  border-bottom:1px solid var(--line);
+  background:#fbfdff;
 }
-
-.sub {
-  margin: 0;
-  color: rgba(255,255,255,0.86);
-  max-width: 70ch;
-  font-size: 14px;
+.hero{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:30px 18px 22px;
+  display:grid;
+  gap:10px;
+  text-align:left;
 }
-
-.btn {
-  display: inline-block;
-  padding: 10px 14px;
-  background: var(--cta);
-  color: white;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 13px;
-  border: 0;
+.hero h1{
+  margin:0;
+  font-size:28px;
+  letter-spacing:-0.02em;
 }
-
-.btn:hover { background: var(--cta-hover); }
-
-.btn-top { padding: 9px 12px; }
-
-main { padding: 24px 18px 42px; }
-
-.card {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 18px;
-  box-shadow: 0 8px 20px rgba(2, 6, 23, 0.05);
+.sub{margin:0; color:var(--muted); max-width:72ch; font-size:14px}
+main{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:22px 18px 42px;
 }
-
-.grid { display: grid; gap: 16px; }
-
-.img {
-  overflow: hidden;
-  border-radius: 12px;
-  border: 1px solid var(--line);
+.card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:18px;
 }
-
-.img img { display: block; width: 100%; height: auto; }
-
-h2 {
-  font-size: 16px;
-  margin: 18px 0 8px;
-  letter-spacing: -0.01em;
+.pill{
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:800;
+  background:#f1f5f9;
+  border:1px solid var(--line);
+  color:var(--muted);
 }
-
-p { margin: 0 0 10px; color: var(--text); }
-ul { margin: 10px 0 14px 18px; color: var(--text); }
-li { margin: 6px 0; }
-
-hr { border: none; border-top: 1px solid var(--line); margin: 18px 0; }
-
-.muted { color: var(--muted); font-size: 13px; }
-
-footer {
-  background: linear-gradient(135deg, var(--bg), var(--bg2));
-  color: rgba(255,255,255,0.9);
-  padding: 34px 18px;
+.img{
+  margin-top:12px;
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  background:#f8fafc;
 }
-
-.footer-card { max-width: var(--max); margin: 0 auto; text-align: center; }
-
-.footer-card h2 { color: white; margin: 0 0 10px; font-size: 18px; }
-
-.footer-card p { color: rgba(255,255,255,0.85); }
-
-.small { margin-top: 18px; font-size: 12px; color: rgba(255,255,255,0.7); }
-
-.links a {
-  color: rgba(255,255,255,0.9);
-  text-decoration: underline;
-  margin: 0 10px;
-  font-size: 13px;
+.img img{display:block; width:100%; height:auto}
+h2{
+  margin:18px 0 8px;
+  font-size:16px;
+  letter-spacing:-0.01em;
 }
-
-.pill {
-  display: inline-block;
-  padding: 4px 10px;
-  background: #eef2ff;
-  border: 1px solid #e0e7ff;
-  color: #1e3a8a;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 800;
+p{margin:0 0 10px}
+.muted{color:var(--muted); font-size:13px}
+hr{border:0; border-top:1px solid var(--line); margin:18px 0}
+.city-grid{
+  list-style:none;
+  padding:0;
+  margin:10px 0 0;
+  display:grid;
+  gap:10px;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
 }
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-  font-size: 14px;
+.city-grid a{
+  display:block;
+  text-decoration:none;
+  color:var(--ink);
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px 12px;
+  font-weight:700;
+  font-size:14px;
 }
-
-.table th, .table td {
-  text-align: left;
-  padding: 10px 10px;
-  border-top: 1px solid var(--line);
-  vertical-align: top;
+footer{
+  border-top:1px solid var(--line);
+  background:#fbfdff;
 }
-
-.table th {
-  color: #0f172a;
-  background: #f1f5f9;
-  border-top: 1px solid var(--line);
+.footer-inner{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:26px 18px;
+  display:grid;
+  gap:10px;
+  text-align:left;
 }
-
-.city-grid {
-  list-style: none;
-  padding: 0;
-  margin: 10px 0 0;
-  display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-}
-
-.city-grid a {
-  display: block;
-  text-decoration: none;
-  color: #0f172a;
-  background: #ffffff;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 10px 12px;
-  font-weight: 700;
-  font-size: 14px;
-}
-
-.city-grid a:hover {
-  border-color: #cbd5e1;
-}
+.footer-inner h2{margin:0; font-size:18px}
+.footer-links{display:flex; gap:12px; flex-wrap:wrap}
+.footer-links a{color:var(--muted); text-decoration:none; font-size:13px; padding:6px 0}
+.small{color:var(--muted); font-size:12px; margin-top:8px}
   </style>
 </head>
 <body>
-
-<div class="topbar">
-  <div class="topbar-inner">
-    <a class="brand" href="/">Wasp Nest Removal Company</a>
-    <div class="topbar-actions">
-      <a class="toplink" href="/">Home</a>
-      <a class="toplink" href="/how-to/">How To</a>
-      <a class="toplink" href="/cost/">Cost</a>
-      <a class="btn btn-top" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="/">Wasp Nest Removal Company</a>
+      <nav class="nav" aria-label="Primary navigation"><a href="/" aria-current="page">Home</a><a href="/cost/">Cost</a><a href="/how-to/">How-To</a><a class="btn" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a></nav>
     </div>
   </div>
-</div>
 
 <header>
-  <div class="wrap hero">
-    <h1>Wasp Nest Removal &amp; Wasp Control Services</h1>
-    <p class="sub">
-      Clear, practical info on getting rid of wasps and removing the nest without making the problem worse.
-    </p>
-    <a class="btn" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a>
+  <div class="hero">
+    <h1>Wasp Nest/Wasp Hive Removal &amp; Wasp Control Services</h1>
+    <p class="sub">How removal works, what prevents repeat activity, and when to call help.</p>
   </div>
 </header>
-
-<main class="wrap">
+<main>
   <section class="card">
     <div class="pill">Main service page</div>
-
-    <div class="img" style="margin-top:12px;">
-      <img src="/assets/house-eaves.jpg" alt="House eaves where wasps often build nests" loading="lazy" />
+    <div class="img">
+      <img src="/assets/wasp-nest.jpg" alt="Service image" loading="lazy" />
     </div>
-
     
 <h2>Wasp Nest Removal</h2>
 <p>
-  We remove a wasp nest by identifying the nest location, treating it, and taking it down once activity drops.
-  If you’ve got wasps coming and going from one spot, that’s usually the nest’s main entrance.
+  We remove a wasp nest by finding where the wasps enter, treating the nest, and taking it down once activity drops.
+  If you see steady wasp traffic to one spot, that’s usually the nest’s main entrance.
+</p>
+<p class="muted">
+  If the nest is high up or you can’t confirm where it sits, don’t poke around—disturbing an active nest is a fast way to get stung.
 </p>
 
 <h2>Wasp Control</h2>
 <p>
-  Wasp control focuses on stopping repeat activity after the nest is dealt with.
-  That can include checking nearby eaves and gaps where wasps keep trying to rebuild.
+  Wasp control is about preventing repeat activity after the nest is handled. That usually means checking common rebuild spots
+  and reducing easy access points—small gaps, sheltered ledges, and other places a new nest can get started.
 </p>
 
 <h2>Wasp Exterminator</h2>
 <p>
-  A wasp exterminator handles nests that are hard to reach or risky to approach.
-  If you’re worried about wasp stings, especially around kids or pets, it’s smarter to get help.
+  A wasp exterminator is the right call when access is risky or the nest is in a tight void. If you’re worried about wasp stings,
+  getting it handled safely is the smarter move.
 </p>
 
-<h2>Wasp Exterminator Near Me</h2>
+<h2>Paper Wasp Nest Removal</h2>
 <p>
-  Looking for a wasp exterminator near me usually means you want fast scheduling and the right tools for the job.
-  If the nest is high up or inside a wall void, don’t poke it—get it handled safely.
+  Paper wasp nest removal is often needed under eaves and overhangs where nests stay dry and protected. The nest can look small from the ground,
+  but activity level is the better clue—heavy traffic usually means a larger colony than it appears.
 </p>
 
-<h2>Wasp Nest Removal Near Me</h2>
+<h2>Ground Wasp Nest Removal</h2>
 <p>
-  Wasp nest removal near me searches spike when a nest shows up near doors, patios, or play areas.
-  If you can see steady wasp traffic, avoid spraying randomly—you can agitate the nest and make it worse.
+  Ground wasp nest removal is different because the entrance can be a small hole and the nest can spread under the soil.
+  Treating the wrong spot can make the area “hot” with defensive wasps, so approach and timing matter more here than almost anywhere else.
 </p>
 
-<h2>Wasp Control Services</h2>
+<h2>Wasp Removal</h2>
 <p>
-  Wasp control services are usually a mix of removal plus targeted follow-up.
-  The goal is fewer wasps around your home and fewer surprise nests in the same spot.
+  Wasp removal is the hands-on work: locate the nest, treat it, and confirm activity drops. Spraying random surfaces doesn’t solve the problem—the nest does.
+  If you keep seeing wasps returning to the same spot, you’re missing the actual entrance.
 </p>
-
-    <hr />
-
-    <h2>Choose your city</h2>
-    <p class="muted">Local pages focus on common nest types and what to look for in your area.</p>
-
-    <ul class="city-grid">
-      <li><a href="/los-angeles-ca/">Los Angeles, CA</a></li>
+<hr />
+<h2>Choose your city</h2>
+<p class="muted">Select a city page for the same guide with a light local line.</p>
+<ul class="city-grid">
+<li><a href="/los-angeles-ca/">Los Angeles, CA</a></li>
 <li><a href="/new-york-ny/">New York, NY</a></li>
 <li><a href="/chicago-il/">Chicago, IL</a></li>
 <li><a href="/houston-tx/">Houston, TX</a></li>
@@ -324,15 +256,27 @@ footer {
 <li><a href="/seattle-wa/">Seattle, WA</a></li>
 <li><a href="/denver-co/">Denver, CO</a></li>
 <li><a href="/washington-dc/">Washington, DC</a></li>
-    </ul>
+</ul>
+<hr />
+<p class="muted">
+  Also available: <a href="/cost/">Wasp Nest Removal Cost</a> and <a href="/how-to/">How to Get Rid of Wasp Nest</a>.
+</p>
+
   </section>
 </main>
 
 <footer>
-  <div class="footer-card">
+  <div class="footer-inner">
     <h2>Next steps</h2>
-    <p>Ready to move forward? Request a free quote</p>
-    <a class="btn" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a>
+    <p class="sub">Ready to move forward? Request a free quote.</p>
+    <div>
+      <a class="btn" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a>
+    </div>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/cost/">Cost</a>
+      <a href="/how-to/">How-To</a>
+    </div>
     <div class="small">© Wasp Nest Removal Company. All rights reserved.</div>
   </div>
 </footer>

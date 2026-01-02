@@ -3,321 +3,244 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Wasp Nest Removal &amp; Wasp Control Services</title>
-  <meta name="description" content="How-to guidance for wasp nest situations: when to spray, when to remove, and when to stop." />
+  <title>How to Get Rid of Wasp Nest Services</title>
+  <meta name="description" content="Clear steps for dealing with a wasp nest without making it worse." />
   <link rel="canonical" href="/how-to/" />
   <style>
-:root {
-  --bg: #0b1b33;
-  --bg2: #102a4d;
-  --text: #0f172a;
-  --muted: #475569;
-  --card: #ffffff;
-  --line: #e2e8f0;
-  --cta: #f97316;
-  --cta-hover: #ea580c;
-  --max: 980px;
-  --radius: 14px;
+:root{
+  --bg:#ffffff;
+  --surface:#ffffff;
+  --ink:#0f172a;
+  --muted:#475569;
+  --line:#e2e8f0;
+  --accent:#0ea5e9;
+  --accent2:#0284c7;
+  --max:980px;
+  --radius:14px;
 }
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-  color: var(--text);
-  background: #f8fafc;
-  line-height: 1.55;
-  padding-top: 58px;
+*{box-sizing:border-box}
+html{color-scheme:light}
+body{
+  margin:0;
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  color:var(--ink);
+  background:var(--bg);
+  line-height:1.55;
 }
-
-.topbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 58px;
-  background: rgba(255,255,255,0.98);
-  border-bottom: 1px solid var(--line);
-  z-index: 999;
-  backdrop-filter: blur(8px);
+a{color:inherit}
+a:focus{outline:2px solid var(--accent); outline-offset:2px}
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(255,255,255,0.98);
+  border-bottom:1px solid var(--line);
 }
-
-.topbar-inner {
-  max-width: var(--max);
-  margin: 0 auto;
-  height: 100%;
-  padding: 0 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+.topbar-inner{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:12px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
 }
-
-.brand {
-  font-weight: 800;
-  text-decoration: none;
-  color: #0b1b33;
-  letter-spacing: -0.01em;
+.brand{
+  font-weight:800;
+  letter-spacing:-0.01em;
+  text-decoration:none;
 }
-
-.topbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 14px;
+.nav{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
 }
-
-.toplink {
-  text-decoration: none;
-  color: #0f172a;
-  font-size: 13px;
+.nav a{
+  text-decoration:none;
+  font-size:13px;
+  color:var(--muted);
+  padding:6px 8px;
+  border-radius:10px;
 }
-
-header {
-  background: linear-gradient(135deg, var(--bg), var(--bg2));
-  color: white;
-  padding: 44px 18px 34px;
+.nav a[aria-current="page"]{
+  color:var(--ink);
+  background:#f1f5f9;
+  border:1px solid var(--line);
 }
-
-.wrap { max-width: var(--max); margin: 0 auto; }
-
-.hero {
-  display: grid;
-  gap: 14px;
-  justify-items: center;
-  text-align: center;
+.btn{
+  display:inline-block;
+  padding:9px 12px;
+  background:var(--accent);
+  color:#fff;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:800;
+  font-size:13px;
+  border:1px solid transparent;
 }
-
-.hero h1 {
-  margin: 0;
-  font-size: 26px;
-  letter-spacing: -0.01em;
+.btn:focus{outline:2px solid var(--accent2); outline-offset:2px}
+header{
+  border-bottom:1px solid var(--line);
+  background:#fbfdff;
 }
-
-.sub {
-  margin: 0;
-  color: rgba(255,255,255,0.86);
-  max-width: 70ch;
-  font-size: 14px;
+.hero{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:30px 18px 22px;
+  display:grid;
+  gap:10px;
+  text-align:left;
 }
-
-.btn {
-  display: inline-block;
-  padding: 10px 14px;
-  background: var(--cta);
-  color: white;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 13px;
-  border: 0;
+.hero h1{
+  margin:0;
+  font-size:28px;
+  letter-spacing:-0.02em;
 }
-
-.btn:hover { background: var(--cta-hover); }
-
-.btn-top { padding: 9px 12px; }
-
-main { padding: 24px 18px 42px; }
-
-.card {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 18px;
-  box-shadow: 0 8px 20px rgba(2, 6, 23, 0.05);
+.sub{margin:0; color:var(--muted); max-width:72ch; font-size:14px}
+main{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:22px 18px 42px;
 }
-
-.grid { display: grid; gap: 16px; }
-
-.img {
-  overflow: hidden;
-  border-radius: 12px;
-  border: 1px solid var(--line);
+.card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:18px;
 }
-
-.img img { display: block; width: 100%; height: auto; }
-
-h2 {
-  font-size: 16px;
-  margin: 18px 0 8px;
-  letter-spacing: -0.01em;
+.pill{
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:800;
+  background:#f1f5f9;
+  border:1px solid var(--line);
+  color:var(--muted);
 }
-
-p { margin: 0 0 10px; color: var(--text); }
-ul { margin: 10px 0 14px 18px; color: var(--text); }
-li { margin: 6px 0; }
-
-hr { border: none; border-top: 1px solid var(--line); margin: 18px 0; }
-
-.muted { color: var(--muted); font-size: 13px; }
-
-footer {
-  background: linear-gradient(135deg, var(--bg), var(--bg2));
-  color: rgba(255,255,255,0.9);
-  padding: 34px 18px;
+.img{
+  margin-top:12px;
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  background:#f8fafc;
 }
-
-.footer-card { max-width: var(--max); margin: 0 auto; text-align: center; }
-
-.footer-card h2 { color: white; margin: 0 0 10px; font-size: 18px; }
-
-.footer-card p { color: rgba(255,255,255,0.85); }
-
-.small { margin-top: 18px; font-size: 12px; color: rgba(255,255,255,0.7); }
-
-.links a {
-  color: rgba(255,255,255,0.9);
-  text-decoration: underline;
-  margin: 0 10px;
-  font-size: 13px;
+.img img{display:block; width:100%; height:auto}
+h2{
+  margin:18px 0 8px;
+  font-size:16px;
+  letter-spacing:-0.01em;
 }
-
-.pill {
-  display: inline-block;
-  padding: 4px 10px;
-  background: #eef2ff;
-  border: 1px solid #e0e7ff;
-  color: #1e3a8a;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 800;
+p{margin:0 0 10px}
+.muted{color:var(--muted); font-size:13px}
+hr{border:0; border-top:1px solid var(--line); margin:18px 0}
+.city-grid{
+  list-style:none;
+  padding:0;
+  margin:10px 0 0;
+  display:grid;
+  gap:10px;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
 }
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-  font-size: 14px;
+.city-grid a{
+  display:block;
+  text-decoration:none;
+  color:var(--ink);
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px 12px;
+  font-weight:700;
+  font-size:14px;
 }
-
-.table th, .table td {
-  text-align: left;
-  padding: 10px 10px;
-  border-top: 1px solid var(--line);
-  vertical-align: top;
+footer{
+  border-top:1px solid var(--line);
+  background:#fbfdff;
 }
-
-.table th {
-  color: #0f172a;
-  background: #f1f5f9;
-  border-top: 1px solid var(--line);
+.footer-inner{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:26px 18px;
+  display:grid;
+  gap:10px;
+  text-align:left;
 }
-
-.city-grid {
-  list-style: none;
-  padding: 0;
-  margin: 10px 0 0;
-  display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-}
-
-.city-grid a {
-  display: block;
-  text-decoration: none;
-  color: #0f172a;
-  background: #ffffff;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 10px 12px;
-  font-weight: 700;
-  font-size: 14px;
-}
-
-.city-grid a:hover {
-  border-color: #cbd5e1;
-}
+.footer-inner h2{margin:0; font-size:18px}
+.footer-links{display:flex; gap:12px; flex-wrap:wrap}
+.footer-links a{color:var(--muted); text-decoration:none; font-size:13px; padding:6px 0}
+.small{color:var(--muted); font-size:12px; margin-top:8px}
   </style>
 </head>
 <body>
-
-<div class="topbar">
-  <div class="topbar-inner">
-    <a class="brand" href="/">Wasp Nest Removal Company</a>
-    <div class="topbar-actions">
-      <a class="toplink" href="/">Home</a>
-      <a class="toplink" href="/how-to/">How To</a>
-      <a class="toplink" href="/cost/">Cost</a>
-      <a class="btn btn-top" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="/">Wasp Nest Removal Company</a>
+      <nav class="nav" aria-label="Primary navigation"><a href="/">Home</a><a href="/cost/">Cost</a><a href="/how-to/" aria-current="page">How-To</a><a class="btn" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a></nav>
     </div>
   </div>
-</div>
 
 <header>
-  <div class="wrap hero">
-    <h1>Wasp Nest Removal &amp; Wasp Control Services</h1>
-    <p class="sub">
-      How-to answers pulled into one place: steps, timing, and when it’s not worth the risk.
-    </p>
-    <a class="btn" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a>
+  <div class="hero">
+    <h1>How to Get Rid of Wasp Nest Services</h1>
+    <p class="sub">A practical guide that prioritizes safety and reduces repeat activity.</p>
   </div>
 </header>
-
-<main class="wrap">
+<main>
   <section class="card">
     <div class="pill">How-to page</div>
-
-    <div class="img" style="margin-top:12px;">
-      <img src="/assets/wasp-spray.jpg" alt="Wasp spray used outdoors" loading="lazy" />
+    <div class="img">
+      <img src="/assets/wasp-spray.jpg" alt="Service image" loading="lazy" />
     </div>
-
     
 <h2>How to Get Rid of Wasp Nest</h2>
 <p>
-  You get rid of a wasp nest by treating the nest when wasp activity is low, then removing it once activity drops.
-  If you can’t reach the nest safely, don’t try—this is when a pro is the right call.
-</p>
-<ul>
-  <li>Locate the nest entrance and note wasp traffic.</li>
-  <li>Keep distance and don’t hit or block the nest opening.</li>
-  <li>If you use a spray, follow the label and keep an exit path.</li>
-  <li>After activity drops, remove the nest and clean the area.</li>
-</ul>
-
-<h2>How to Get Rid of a Wasp Nest</h2>
-<p>
-  Same approach: treat first, remove second.
-  The biggest mistake is knocking the nest down while it’s active.
+  To get rid of a wasp nest, don’t provoke it first. The safest plan is to identify the entrance, keep people and pets away, and treat the nest when activity is low.
+  If you can’t clearly see the nest or it’s high up, skip this and call a pro.
 </p>
 
 <h2>How to Remove Wasp Nest</h2>
 <p>
-  To remove a wasp nest, you need low activity, safe access, and a plan to avoid stings.
-  If the nest is high up, inside a wall, or near a doorway, removal can turn risky fast.
+  To remove a wasp nest, you treat it first and only take it down once activity drops. Pulling down an active nest is what triggers defensive behavior and increases the risk of wasp stings.
 </p>
 
 <h2>Remove Wasp Nest</h2>
 <p>
-  Yes, you can remove a wasp nest yourself if it’s small, reachable, and you can keep distance.
-  If you’re guessing, that’s a sign to stop and get help.
+  “Remove wasp nest” really means removing the source of activity, not just spraying around. If wasps keep returning to the same spot, the nest entrance is still active.
 </p>
 
 <h2>Best Time to Spray Wasp Nest</h2>
 <p>
-  The best time to spray a wasp nest is when activity is lowest.
-  That usually means you’ll see fewer wasps flying in and out compared to daytime.
+  The best time to spray a wasp nest is when activity is low and fewer wasps are flying in and out. Bad timing can make the nest more defensive and the situation worse.
 </p>
 
 <h2>Wasp Spray</h2>
 <p>
-  Wasp spray is commonly used for nests that are reachable without climbing or squeezing into tight spaces.
-  Don’t mix DIY liquids in a spray bottle near an active nest—stick to products labeled for the job or call a pro.
+  Wasp spray only helps if you can safely hit the nest and follow directions. Improvising with a spray bottle or mixing products can create safety issues—don’t do that.
+</p>
+
+<h2>What Kills Wasps</h2>
+<p>
+  What kills wasps depends on the product and direct contact, but the bigger point is targeting the nest. If you can’t safely reach it,
+  trying to “solve it from a distance” usually just spreads activity and increases sting risk.
 </p>
   </section>
 </main>
 
 <footer>
-  <div class="footer-card">
+  <div class="footer-inner">
     <h2>Next steps</h2>
-    <p>Ready to move forward? Request a free quote</p>
-    <a class="btn" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a>
-    <div class="small">
-      © Wasp Nest Removal Company. All rights reserved.
-      <div class="links" style="margin-top:10px;">
-        <a href="/">Home</a>
-        <a href="/cost/">Cost</a>
-      </div>
+    <p class="sub">Ready to move forward? Request a free quote.</p>
+    <div>
+      <a class="btn" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a>
     </div>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/cost/">Cost</a>
+      <a href="/how-to/">How-To</a>
+    </div>
+    <div class="small">© Wasp Nest Removal Company. All rights reserved.</div>
   </div>
 </footer>
 </body>
