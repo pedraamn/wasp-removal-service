@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wasp Nest Removal &amp; Wasp Control Services</title>
+  <meta name="description" content="Straight answers on wasp nest removal, wasp control, and what affects typical cost." />
+  <link rel="canonical" href="/" />
+  <style>
+:root {
+  --bg: #0b1b33;
+  --bg2: #102a4d;
+  --text: #0f172a;
+  --muted: #475569;
+  --card: #ffffff;
+  --line: #e2e8f0;
+  --cta: #f97316;
+  --cta-hover: #ea580c;
+  --max: 980px;
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  color: var(--text);
+  background: #f8fafc;
+  line-height: 1.55;
+  padding-top: 58px;
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 58px;
+  background: rgba(255,255,255,0.98);
+  border-bottom: 1px solid var(--line);
+  z-index: 999;
+  backdrop-filter: blur(8px);
+}
+
+.topbar-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  height: 100%;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand {
+  font-weight: 800;
+  text-decoration: none;
+  color: #0b1b33;
+  letter-spacing: -0.01em;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.toplink {
+  text-decoration: none;
+  color: #0f172a;
+  font-size: 13px;
+}
+
+header {
+  background: linear-gradient(135deg, var(--bg), var(--bg2));
+  color: white;
+  padding: 44px 18px 34px;
+}
+
+.wrap { max-width: var(--max); margin: 0 auto; }
+
+.hero {
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+  text-align: center;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 26px;
+  letter-spacing: -0.01em;
+}
+
+.sub {
+  margin: 0;
+  color: rgba(255,255,255,0.86);
+  max-width: 70ch;
+  font-size: 14px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 14px;
+  background: var(--cta);
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 13px;
+  border: 0;
+}
+
+.btn:hover { background: var(--cta-hover); }
+
+.btn-top { padding: 9px 12px; }
+
+main { padding: 24px 18px 42px; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: 0 8px 20px rgba(2, 6, 23, 0.05);
+}
+
+.grid { display: grid; gap: 16px; }
+
+.img {
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+}
+
+.img img { display: block; width: 100%; height: auto; }
+
+h2 {
+  font-size: 16px;
+  margin: 18px 0 8px;
+  letter-spacing: -0.01em;
+}
+
+p { margin: 0 0 10px; color: var(--text); }
+ul { margin: 10px 0 14px 18px; color: var(--text); }
+li { margin: 6px 0; }
+
+hr { border: none; border-top: 1px solid var(--line); margin: 18px 0; }
+
+.muted { color: var(--muted); font-size: 13px; }
+
+footer {
+  background: linear-gradient(135deg, var(--bg), var(--bg2));
+  color: rgba(255,255,255,0.9);
+  padding: 34px 18px;
+}
+
+.footer-card { max-width: var(--max); margin: 0 auto; text-align: center; }
+
+.footer-card h2 { color: white; margin: 0 0 10px; font-size: 18px; }
+
+.footer-card p { color: rgba(255,255,255,0.85); }
+
+.small { margin-top: 18px; font-size: 12px; color: rgba(255,255,255,0.7); }
+
+.links a {
+  color: rgba(255,255,255,0.9);
+  text-decoration: underline;
+  margin: 0 10px;
+  font-size: 13px;
+}
+
+.pill {
+  display: inline-block;
+  padding: 4px 10px;
+  background: #eef2ff;
+  border: 1px solid #e0e7ff;
+  color: #1e3a8a;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.table th, .table td {
+  text-align: left;
+  padding: 10px 10px;
+  border-top: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.table th {
+  color: #0f172a;
+  background: #f1f5f9;
+  border-top: 1px solid var(--line);
+}
+
+.city-grid {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.city-grid a {
+  display: block;
+  text-decoration: none;
+  color: #0f172a;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.city-grid a:hover {
+  border-color: #cbd5e1;
+}
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="/">Wasp Nest Removal Company</a>
+    <div class="topbar-actions">
+      <a class="toplink" href="/">Home</a>
+      <a class="toplink" href="/how-to/">How To</a>
+      <a class="toplink" href="/cost/">Cost</a>
+      <a class="btn btn-top" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="wrap hero">
+    <h1>Wasp Nest Removal &amp; Wasp Control Services</h1>
+    <p class="sub">
+      Clear, practical info on getting rid of wasps and removing the nest without making the problem worse.
+    </p>
+    <a class="btn" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="card">
+    <div class="pill">Main service page</div>
+
+    <div class="img" style="margin-top:12px;">
+      <img src="/assets/house-eaves.jpg" alt="House eaves where wasps often build nests" loading="lazy" />
+    </div>
+
+    
+<h2>Wasp Nest Removal</h2>
+<p>
+  We remove a wasp nest by identifying the nest location, treating it, and taking it down once activity drops.
+  If you’ve got wasps coming and going from one spot, that’s usually the nest’s main entrance.
+</p>
+
+<h2>Wasp Control</h2>
+<p>
+  Wasp control focuses on stopping repeat activity after the nest is dealt with.
+  That can include checking nearby eaves and gaps where wasps keep trying to rebuild.
+</p>
+
+<h2>Wasp Exterminator</h2>
+<p>
+  A wasp exterminator handles nests that are hard to reach or risky to approach.
+  If you’re worried about wasp stings, especially around kids or pets, it’s smarter to get help.
+</p>
+
+<h2>Wasp Exterminator Near Me</h2>
+<p>
+  Looking for a wasp exterminator near me usually means you want fast scheduling and the right tools for the job.
+  If the nest is high up or inside a wall void, don’t poke it—get it handled safely.
+</p>
+
+<h2>Wasp Nest Removal Near Me</h2>
+<p>
+  Wasp nest removal near me searches spike when a nest shows up near doors, patios, or play areas.
+  If you can see steady wasp traffic, avoid spraying randomly—you can agitate the nest and make it worse.
+</p>
+
+<h2>Wasp Control Services</h2>
+<p>
+  Wasp control services are usually a mix of removal plus targeted follow-up.
+  The goal is fewer wasps around your home and fewer surprise nests in the same spot.
+</p>
+
+    <hr />
+
+    <h2>Choose your city</h2>
+    <p class="muted">Local pages focus on common nest types and what to look for in your area.</p>
+
+    <ul class="city-grid">
+      <li><a href="/los-angeles-ca/">Los Angeles, CA</a></li>
+<li><a href="/new-york-ny/">New York, NY</a></li>
+<li><a href="/chicago-il/">Chicago, IL</a></li>
+<li><a href="/houston-tx/">Houston, TX</a></li>
+<li><a href="/phoenix-az/">Phoenix, AZ</a></li>
+<li><a href="/philadelphia-pa/">Philadelphia, PA</a></li>
+<li><a href="/san-antonio-tx/">San Antonio, TX</a></li>
+<li><a href="/san-diego-ca/">San Diego, CA</a></li>
+<li><a href="/dallas-tx/">Dallas, TX</a></li>
+<li><a href="/san-jose-ca/">San Jose, CA</a></li>
+<li><a href="/austin-tx/">Austin, TX</a></li>
+<li><a href="/jacksonville-fl/">Jacksonville, FL</a></li>
+<li><a href="/fort-worth-tx/">Fort Worth, TX</a></li>
+<li><a href="/columbus-oh/">Columbus, OH</a></li>
+<li><a href="/charlotte-nc/">Charlotte, NC</a></li>
+<li><a href="/san-francisco-ca/">San Francisco, CA</a></li>
+<li><a href="/indianapolis-in/">Indianapolis, IN</a></li>
+<li><a href="/seattle-wa/">Seattle, WA</a></li>
+<li><a href="/denver-co/">Denver, CO</a></li>
+<li><a href="/washington-dc/">Washington, DC</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-card">
+    <h2>Next steps</h2>
+    <p>Ready to move forward? Request a free quote</p>
+    <a class="btn" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a>
+    <div class="small">© Wasp Nest Removal Company. All rights reserved.</div>
+  </div>
+</footer>
+</body>
+</html>
