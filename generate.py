@@ -1,23 +1,27 @@
 #!/usr/bin/env python3
 """
-Static site generator (no JS) for a single-service, multi-city site.
+Static site generator (no JS) for a single-service, multi-city home-services site.
 
 Cloudflare Pages:
 - Build command: (empty)
 - Output directory: public
 
 URL structure:
-- /<city>-<state>/   e.g. /los-angeles-ca/
-- /cost/
-- /how-to/
+- /                    (home)
+- /<city>-<state>/      e.g. /los-angeles-ca/
 
 SEO rules enforced:
 - Exactly one H1 per page
 - <title> == H1
 - Title <= 70 characters
 - Main + City pages use the exact same H2 set (Ahrefs-driven)
-- Cost and How-To use distinct H2 sets (no reused headings across them)
 - Pure CSS, barebones, fast
+
+Changes in this version:
+- Removed Cost + How-To pages and related nav/footer links
+- Added a subtle cost range callout box on city pages (conversion element)
+- Updated color system to feel less “techy/videogame” and more “home services”
+- Topbar CTA button is WHITE with readable dark text
 """
 
 from __future__ import annotations
@@ -81,24 +85,6 @@ H2_SHARED = [
     "Wasp Removal",
 ]
 
-H2_COST = [
-    "Wasp Nest Removal Cost",
-    "How Much Does It Cost to Remove a Wasp Nest",
-    "Cost of Wasp Nest Removal",
-    "Wasp Removal Cost",
-    "Wasp Nest Removal Price",
-    "Hornet Nest Removal Cost",
-]
-
-H2_HOWTO = [
-    "How to Get Rid of Wasp Nest",
-    "How to Remove Wasp Nest",
-    "Remove Wasp Nest",
-    "Best Time to Spray Wasp Nest",
-    "Wasp Spray",
-    "What Kills Wasps",
-]
-
 ALSO_MENTIONED = [
     "pest control",
     "spray",
@@ -160,56 +146,50 @@ def copy_site_image(*, src_dir: Path, out_dir: Path, filename: str) -> None:
 
 
 # -----------------------
-# THEME (pure CSS, minimal, fast)
-# Warmer, home-services palette + softer motion (no JS)
+# THEME (pure CSS, minimal, warm, home-services vibe)
 # -----------------------
 CSS = """
 :root{
-  /* Warm, home-services feel */
-  --bg:#fbf7f1;        /* warm off-white */
-  --surface:#ffffff;
-  --ink:#1f2937;       /* slate-800 */
-  --muted:#5b6472;     /* softer slate */
-  --line:#eadfce;      /* warm border */
-  --shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
-
-  /* Primary brand accent (sage/green) */
-  --accent:#2f6f4e;
-  --accent2:#24563c;
-
-  /* Subtle highlight */
-  --tint:#f2efe9;
-  --tint2:#f7f1e6;
-
-  --max:980px;
-  --radius:16px;
+  /* Warm, home-services palette (less "techy") */
+  --bg: #fbfaf7;
+  --surface: #ffffff;
+  --ink: #1f2937;       /* slate-800 */
+  --muted: #5b6777;     /* warm slate */
+  --line: #e6e1d8;      /* warm border */
+  --soft: #f4f1ea;      /* warm panel */
+  --accent: #2f6f4e;    /* calm green */
+  --accent2:#24573d;    /* darker green */
+  --accent3:#b45309;    /* subtle amber (sparingly) */
+  --max: 980px;
+  --radius: 16px;
+  --shadow: 0 10px 26px rgba(17,24,39,.08);
+  --shadow2: 0 6px 18px rgba(17,24,39,.07);
 }
 
 *{box-sizing:border-box}
 html{color-scheme:light}
 body{
   margin:0;
-  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
   color:var(--ink);
   background:
-    radial-gradient(1200px 600px at 10% -10%, rgba(47,111,78,0.10), rgba(47,111,78,0.00) 55%),
-    radial-gradient(900px 500px at 95% -20%, rgba(139,94,60,0.10), rgba(139,94,60,0.00) 60%),
+    radial-gradient(900px 500px at 15% -10%, rgba(47,111,78,.10), rgba(47,111,78,0) 60%),
+    radial-gradient(900px 500px at 95% 0%, rgba(180,83,9,.08), rgba(180,83,9,0) 60%),
     var(--bg);
   line-height:1.6;
 }
 
 a{color:inherit}
-a:focus{outline:2px solid var(--accent); outline-offset:2px}
+a:focus{outline:2px solid rgba(47,111,78,.45); outline-offset:2px}
 
 .topbar{
   position:sticky;
   top:0;
   z-index:50;
-  background:rgba(251,247,241,0.92);
-  backdrop-filter:saturate(140%) blur(10px);
-  border-bottom:1px solid var(--line);
+  background: rgba(251,250,247,.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
 }
-
 .topbar-inner{
   max-width:var(--max);
   margin:0 auto;
@@ -217,9 +197,8 @@ a:focus{outline:2px solid var(--accent); outline-offset:2px}
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:14px;
+  gap:12px;
 }
-
 .brand{
   font-weight:900;
   letter-spacing:-0.02em;
@@ -228,130 +207,133 @@ a:focus{outline:2px solid var(--accent); outline-offset:2px}
   align-items:center;
   gap:10px;
 }
-
-.brand:before{
-  content:"";
-  width:12px;
-  height:12px;
-  border-radius:999px;
-  background:linear-gradient(180deg, var(--accent), var(--accent2));
-  box-shadow:0 6px 14px rgba(47,111,78,0.18);
+.brand-mark{
+  width:34px;
+  height:34px;
+  border-radius:12px;
+  background: linear-gradient(135deg, rgba(47,111,78,.16), rgba(180,83,9,.10));
+  border:1px solid var(--line);
+  box-shadow: var(--shadow2);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  color: var(--accent2);
 }
 
 .nav{
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:10px;
   flex-wrap:wrap;
   justify-content:flex-end;
 }
-
 .nav a{
   text-decoration:none;
   font-size:13px;
   color:var(--muted);
-  padding:7px 10px;
-  border-radius:999px;
+  padding:7px 9px;
+  border-radius:12px;
   border:1px solid transparent;
-  transition:transform .12s ease, background .12s ease, border-color .12s ease, color .12s ease;
 }
-
 .nav a:hover{
-  background:var(--tint2);
-  border-color:var(--line);
-  color:var(--ink);
-  transform:translateY(-1px);
+  background: rgba(244,241,234,.9);
+  border-color: var(--line);
+  color: var(--ink);
 }
 
-.nav a[aria-current="page"]{
-  color:var(--ink);
-  background:var(--tint2);
-  border:1px solid var(--line);
-}
-
+/* Topbar CTA = white button with readable text */
 .btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
   gap:8px;
-  padding:10px 13px;
-  background:linear-gradient(180deg, var(--accent), var(--accent2));
-  color:#fff;
-  border-radius:999px;
+  padding:9px 12px;
+  border-radius:12px;
   text-decoration:none;
   font-weight:900;
   font-size:13px;
-  border:1px solid rgba(255,255,255,0.18);
-  box-shadow:0 12px 22px rgba(47,111,78,0.16);
-  transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
+  border:1px solid var(--line);
+  box-shadow: var(--shadow2);
+  transition: transform .08s ease, box-shadow .12s ease, background .12s ease;
 }
+.btn:active{transform: translateY(1px)}
+.btn:focus{outline:2px solid rgba(47,111,78,.45); outline-offset:2px}
 
-.btn:hover{
-  transform:translateY(-1px);
-  box-shadow:0 14px 26px rgba(47,111,78,0.20);
-  filter:saturate(110%);
+.btn-cta{
+  background:#ffffff;
+  color: var(--ink);
 }
-
-.btn:focus{outline:2px solid var(--accent2); outline-offset:2px}
+.btn-cta:hover{
+  background: #fdfcf9;
+  box-shadow: var(--shadow);
+}
 
 header{
   border-bottom:1px solid var(--line);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0.00)),
-    var(--bg);
+  background: linear-gradient(180deg, rgba(255,255,255,.65), rgba(255,255,255,.25));
 }
-
 .hero{
   max-width:var(--max);
   margin:0 auto;
-  padding:34px 18px 24px;
+  padding:32px 18px 20px;
   display:grid;
   gap:10px;
-  text-align:left;
 }
-
 .hero h1{
   margin:0;
   font-size:30px;
   letter-spacing:-0.03em;
-  line-height:1.15;
+  line-height:1.18;
 }
-
-.sub{margin:0; color:var(--muted); max-width:74ch; font-size:14px}
+.sub{
+  margin:0;
+  color:var(--muted);
+  max-width:74ch;
+  font-size:14px;
+}
+.hero-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:6px;
+}
+.btn-primary{
+  background: var(--accent);
+  color:#fff;
+  border-color: rgba(0,0,0,0);
+  box-shadow: var(--shadow);
+}
+.btn-primary:hover{background: var(--accent2)}
+.btn-ghost{
+  background: rgba(255,255,255,.7);
+  color: var(--ink);
+}
+.btn-ghost:hover{background: rgba(255,255,255,.95)}
 
 main{
   max-width:var(--max);
   margin:0 auto;
-  padding:22px 18px 46px;
+  padding:22px 18px 44px;
 }
-
 .card{
-  background:rgba(255,255,255,0.92);
+  background:var(--surface);
   border:1px solid var(--line);
   border-radius:var(--radius);
   padding:18px;
-  box-shadow:var(--shadow);
+  box-shadow: var(--shadow2);
 }
-
 .pill{
   display:inline-flex;
   align-items:center;
   gap:8px;
-  padding:5px 11px;
+  padding:6px 10px;
   border-radius:999px;
   font-size:12px;
   font-weight:900;
-  background:var(--tint2);
+  background: rgba(244,241,234,.9);
   border:1px solid var(--line);
-  color:var(--muted);
-}
-
-.pill:before{
-  content:"";
-  width:7px;
-  height:7px;
-  border-radius:999px;
-  background:var(--accent);
+  color: var(--muted);
 }
 
 .img{
@@ -359,9 +341,9 @@ main{
   border-radius:14px;
   overflow:hidden;
   border:1px solid var(--line);
-  background:#f6f1e7;
+  background: #fff;
+  box-shadow: 0 10px 26px rgba(17,24,39,.06);
 }
-
 .img img{display:block; width:100%; height:auto}
 
 h2{
@@ -369,129 +351,80 @@ h2{
   font-size:16px;
   letter-spacing:-0.01em;
 }
-
 p{margin:0 0 10px}
-
 .muted{color:var(--muted); font-size:13px}
 
 hr{border:0; border-top:1px solid var(--line); margin:18px 0}
 
-.city-grid{
-  list-style:none;
-  padding:0;
-  margin:10px 0 0;
-  display:grid;
-  gap:10px;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-}
-
-.city-grid a{
-  display:block;
-  text-decoration:none;
-  color:var(--ink);
-  background:rgba(255,255,255,0.96);
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:11px 12px;
-  font-weight:800;
-  font-size:14px;
-  box-shadow:0 10px 18px rgba(17,24,39,0.05);
-  transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
-}
-
-.city-grid a:hover{
-  transform:translateY(-2px);
-  box-shadow:0 14px 22px rgba(17,24,39,0.07);
-  background:#fff;
-}
-
-/* High-impact conversion callout (used on city pages) */
+/* Conversion callout (city pages) */
 .callout{
-  margin:14px 0 6px;
-  padding:14px 14px;
-  border-radius:14px;
-  border:1px solid rgba(47,111,78,0.22);
+  margin-top:14px;
+  border-radius: 14px;
+  padding:12px 12px;
+  border:1px solid var(--line);
   background:
-    linear-gradient(180deg, rgba(47,111,78,0.10), rgba(47,111,78,0.04));
+    linear-gradient(135deg, rgba(47,111,78,.10), rgba(47,111,78,0) 55%),
+    linear-gradient(135deg, rgba(180,83,9,.09), rgba(180,83,9,0) 55%),
+    rgba(244,241,234,.75);
 }
-
 .callout strong{
   display:block;
   font-size:13px;
   letter-spacing:-0.01em;
-  margin-bottom:6px;
 }
-
-.callout .row{
+.callout p{margin:6px 0 0}
+.callout .callout-row{
   display:flex;
-  flex-wrap:wrap;
   align-items:center;
   justify-content:space-between;
   gap:10px;
+  flex-wrap:wrap;
 }
-
 .callout .range{
-  font-weight:950;
-  font-size:18px;
-  letter-spacing:-0.02em;
+  font-weight:900;
+  color: var(--accent2);
 }
 
-.callout .note{
-  color:var(--muted);
-  font-size:13px;
-  max-width:70ch;
+.city-grid{
+  list-style:none;
+  padding:0;
+  margin:12px 0 0;
+  display:grid;
+  gap:10px;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
 }
-
-.callout .cta{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
+.city-grid a{
+  display:block;
   text-decoration:none;
-  font-weight:950;
-  font-size:13px;
-  padding:9px 12px;
-  border-radius:999px;
-  color:var(--accent2);
-  background:rgba(255,255,255,0.7);
-  border:1px solid rgba(47,111,78,0.22);
-  transition:transform .12s ease, background .12s ease;
+  color:var(--ink);
+  background: #ffffff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:10px 12px;
+  font-weight:800;
+  font-size:14px;
+  box-shadow: 0 6px 18px rgba(17,24,39,.05);
+  transition: transform .08s ease, box-shadow .12s ease;
 }
-
-.callout .cta:hover{
-  transform:translateY(-1px);
-  background:rgba(255,255,255,0.92);
+.city-grid a:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 10px 26px rgba(17,24,39,.08);
 }
+.city-grid a:active{transform: translateY(0px)}
 
-/* Footer */
 footer{
   border-top:1px solid var(--line);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.45), rgba(255,255,255,0.00)),
-    var(--bg);
+  background: rgba(255,255,255,.35);
 }
-
 .footer-inner{
   max-width:var(--max);
   margin:0 auto;
   padding:26px 18px;
   display:grid;
   gap:10px;
-  text-align:left;
 }
-
-.footer-inner h2{margin:0; font-size:18px}
-
-.footer-links{display:flex; gap:12px; flex-wrap:wrap}
-
-.footer-links a{
-  color:var(--muted);
-  text-decoration:none;
-  font-size:13px;
-  padding:6px 0;
-}
-
-.footer-links a:hover{color:var(--ink)}
-
+.footer-inner h2{margin:0; font-size:18px; letter-spacing:-0.02em}
+.footer-inner .sub{font-size:13px}
 .small{color:var(--muted); font-size:12px; margin-top:8px}
 """.strip()
 
@@ -500,6 +433,7 @@ footer{
 # HTML BUILDING BLOCKS
 # -----------------------
 def nav_html(current: str) -> str:
+    # Minimal nav: Home + CTA only
     def item(href: str, label: str, key: str) -> str:
         cur = ' aria-current="page"' if current == key else ""
         return f'<a href="{esc(href)}"{cur}>{esc(label)}</a>'
@@ -507,15 +441,12 @@ def nav_html(current: str) -> str:
     return (
         '<nav class="nav" aria-label="Primary navigation">'
         + item("/", "Home", "home")
-        + item("/cost/", "Cost", "cost")
-        + item("/how-to/", "How-To", "howto")
-        + f'<a class="btn" href="{esc(CONFIG.cta_href)}">{esc(CONFIG.cta_text)}</a>'
+        + f'<a class="btn btn-cta" href="{esc(CONFIG.cta_href)}">{esc(CONFIG.cta_text)}</a>'
         + "</nav>"
     )
 
 
 def base_html(*, title: str, canonical_path: str, description: str, current_nav: str, body: str) -> str:
-    # title == h1 is enforced by callers; keep this thin.
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -531,7 +462,10 @@ def base_html(*, title: str, canonical_path: str, description: str, current_nav:
 <body>
   <div class="topbar">
     <div class="topbar-inner">
-      <a class="brand" href="/">{esc(CONFIG.brand_name)}</a>
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true">W</span>
+        <span>{esc(CONFIG.brand_name)}</span>
+      </a>
       {nav_html(current_nav)}
     </div>
   </div>
@@ -541,12 +475,20 @@ def base_html(*, title: str, canonical_path: str, description: str, current_nav:
 """
 
 
-def header_block(*, h1: str, sub: str) -> str:
+def header_block(*, h1: str, sub: str, show_actions: bool = True) -> str:
+    actions = ""
+    if show_actions:
+        actions = f"""
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="{esc(CONFIG.cta_href)}">{esc(CONFIG.cta_text)}</a>
+      <a class="btn btn-ghost" href="#cities">Browse cities</a>
+    </div>""".rstrip()
+
     return f"""
 <header>
   <div class="hero">
     <h1>{esc(h1)}</h1>
-    <p class="sub">{esc(sub)}</p>
+    <p class="sub">{esc(sub)}</p>{actions}
   </div>
 </header>
 """.rstrip()
@@ -559,12 +501,7 @@ def footer_block() -> str:
     <h2>Next steps</h2>
     <p class="sub">Ready to move forward? Request a free quote.</p>
     <div>
-      <a class="btn" href="{esc(CONFIG.cta_href)}">{esc(CONFIG.cta_text)}</a>
-    </div>
-    <div class="footer-links">
-      <a href="/">Home</a>
-      <a href="/cost/">Cost</a>
-      <a href="/how-to/">How-To</a>
+      <a class="btn btn-primary" href="{esc(CONFIG.cta_href)}">{esc(CONFIG.cta_text)}</a>
     </div>
     <div class="small">© {esc(CONFIG.brand_name)}. All rights reserved.</div>
   </div>
@@ -572,12 +509,10 @@ def footer_block() -> str:
 """.rstrip()
 
 
-def page_shell(*, h1: str, sub: str, pill: str, inner_html: str) -> str:
-    # Single image used everywhere. Since we copy picture.png into /public/,
-    # it can be referenced as "/picture.png" from any route.
+def page_shell(*, h1: str, sub: str, pill: str, inner_html: str, show_actions: bool = True) -> str:
     img_src = f"/{CONFIG.image_filename}"
     return (
-        header_block(h1=h1, sub=sub)
+        header_block(h1=h1, sub=sub, show_actions=show_actions)
         + f"""
 <main>
   <section class="card">
@@ -640,89 +575,26 @@ def shared_sections_html(*, local_line: str | None = None) -> str:
 """.rstrip()
 
 
-def cost_sections_html() -> str:
+def cost_callout_html(city: str, state: str) -> str:
+    # Subtle but high-impact conversion element, no separate cost page
     return f"""
-<h2>{esc(H2_COST[0])}</h2>
-<p>
-  Wasp nest removal cost depends mostly on access and nest location. A visible nest under an eave is typically quicker than one tucked into a structure.
-</p>
-
-<h2>{esc(H2_COST[1])}</h2>
-<p>
-  Most homeowners pay somewhere between ${CONFIG.cost_low} and ${CONFIG.cost_high} for a single nest removal.
-  High nests, hidden nests, and extra time on site are what usually push the total higher.
-</p>
-
-<h2>{esc(H2_COST[2])}</h2>
-<p>
-  The cost of wasp nest removal moves with labor time and risk. Bigger nests, awkward rooflines, and repeated trips are common drivers behind a higher {esc(ALSO_MENTIONED[5])}.
-</p>
-
-<h2>{esc(H2_COST[3])}</h2>
-<p>
-  Wasp removal cost can be lower when the nest is small and easy to access, and higher when it’s established and defensive.
-  If the nest has already been disturbed, the job can take longer because the wasps are more aggressive.
-</p>
-
-<h2>{esc(H2_COST[4])}</h2>
-<p>
-  Wasp nest removal price is basically the same question as “cost,” just phrased differently. What matters is whether the nest is simple to reach and remove,
-  or whether it needs special handling for safety.
-</p>
-
-<h2>{esc(H2_COST[5])}</h2>
-<p>
-  Hornet nest removal cost is often higher because hornet nests can be larger and more defensive, and they’re frequently placed higher or deeper in sheltered areas.
-</p>
-
-<hr />
-
-<p class="muted">
-  Typical installed range (single nest, many homes): ${CONFIG.cost_low}–${CONFIG.cost_high}. Final pricing depends on access, nest location, and time on site.
-</p>
-""".rstrip()
-
-
-def howto_sections_html() -> str:
-    return f"""
-<h2>{esc(H2_HOWTO[0])}</h2>
-<p>
-  To get rid of a wasp nest, don’t provoke it first. The safest plan is to identify the entrance, keep people and pets away, and treat the nest when activity is low.
-  If you can’t clearly see the nest or it’s high up, skip this and call a pro.
-</p>
-
-<h2>{esc(H2_HOWTO[1])}</h2>
-<p>
-  To remove a wasp nest, you treat it first and only take it down once activity drops. Pulling down an active nest is what triggers defensive behavior and increases the risk of {esc(ALSO_MENTIONED[4])}.
-</p>
-
-<h2>{esc(H2_HOWTO[2])}</h2>
-<p>
-  “Remove wasp nest” really means removing the source of activity, not just spraying around. If wasps keep returning to the same spot, the nest entrance is still active.
-</p>
-
-<h2>{esc(H2_HOWTO[3])}</h2>
-<p>
-  The best time to spray a wasp nest is when activity is low and fewer wasps are flying in and out. Bad timing can make the nest more defensive and the situation worse.
-</p>
-
-<h2>{esc(H2_HOWTO[4])}</h2>
-<p>
-  Wasp spray only helps if you can safely hit the nest and follow directions. Improvising with a {esc(ALSO_MENTIONED[2])} or mixing products can create safety issues—don’t do that.
-</p>
-
-<h2>{esc(H2_HOWTO[5])}</h2>
-<p>
-  What kills wasps depends on the product and direct contact, but the bigger point is targeting the nest. If you can’t safely reach it,
-  trying to “solve it from a distance” usually just spreads activity and increases sting risk.
-</p>
+<div class="callout" role="note" aria-label="Typical cost range">
+  <div class="callout-row">
+    <strong>Typical cost range in {esc(city)}, {esc(state)}</strong>
+    <div class="range">${CONFIG.cost_low}–${CONFIG.cost_high}</div>
+  </div>
+  <p class="muted">
+    Most pricing depends on access and nest location (eaves vs. inside a structure, height, and how established it is).
+    For an exact quote, use the estimate button.
+  </p>
+</div>
 """.rstrip()
 
 
 # -----------------------
 # PAGE FACTORY
 # -----------------------
-def make_page(*, h1: str, canonical: str, description: str, nav_key: str, pill: str, sub: str, inner: str) -> str:
+def make_page(*, h1: str, canonical: str, description: str, nav_key: str, pill: str, sub: str, inner: str, show_actions: bool = True) -> str:
     h1 = clamp_title(h1, 70)
     title = h1  # enforce title == h1
     return base_html(
@@ -730,7 +602,7 @@ def make_page(*, h1: str, canonical: str, description: str, nav_key: str, pill: 
         canonical_path=canonical,
         description=clamp_title(description, 155),
         current_nav=nav_key,
-        body=page_shell(h1=h1, sub=sub, pill=pill, inner_html=inner),
+        body=page_shell(h1=h1, sub=sub, pill=pill, inner_html=inner, show_actions=show_actions),
     )
 
 
@@ -740,21 +612,18 @@ def homepage_html() -> str:
         f'<li><a href="{esc("/" + city_state_slug(city, state) + "/")}">{esc(city)}, {esc(state)}</a></li>'
         for city, state in CITIES
     )
+
     inner = (
         shared_sections_html()
         + """
 <hr />
-<h2>Choose your city</h2>
-<p class="muted">Select a city page for the same guide with a light local line.</p>
+<h2 id="cities">Choose your city</h2>
+<p class="muted">Select a city page for the same guide with a local note and a quick pricing callout.</p>
 <ul class="city-grid">
 """
         + city_links
         + """
 </ul>
-<hr />
-<p class="muted">
-  Also available: <a href="/cost/">Wasp Nest Removal Cost</a> and <a href="/how-to/">How to Get Rid of Wasp Nest</a>.
-</p>
 """
     )
 
@@ -766,38 +635,14 @@ def homepage_html() -> str:
         pill="Main service page",
         sub="How removal works, what prevents repeat activity, and when to call help.",
         inner=inner,
+        show_actions=True,
     )
 
 
 def city_page_html(city: str, state: str) -> str:
-    # High-impact callout box for conversion (subtle, warm)
-    callout = f"""
-<div class="callout" role="note" aria-label="Typical cost range">
-  <strong>Typical cost range in {esc(city)}, {esc(state)}</strong>
-  <div class="row">
-    <div class="range">${CONFIG.cost_low}–${CONFIG.cost_high}</div>
-    <a class="cta" href="{esc(CONFIG.cta_href)}">{esc(CONFIG.cta_text)}</a>
-  </div>
-  <p class="note">
-    Access and nest location drive most pricing. For a full breakdown, see the <a href="/cost/">cost page</a>.
-  </p>
-</div>
-""".rstrip()
-
     inner = (
         shared_sections_html(local_line=f"Serving {city}, {state}.")
-        + "\n"
-        + callout
-        + """
-<hr />
-<h2>Wasp Nest Removal Cost</h2>
-<p class="muted">
-  Typical installed range for one nest often falls around """
-        + f"${CONFIG.cost_low}–${CONFIG.cost_high}"
-        + """. Access and nest location drive most pricing.
-  See the <a href="/cost/">cost page</a> for details.
-</p>
-"""
+        + cost_callout_html(city, state)
     )
 
     return make_page(
@@ -806,32 +651,9 @@ def city_page_html(city: str, state: str) -> str:
         description=f"Wasp nest removal and wasp control guide with local context for {city}, {state}.",
         nav_key="home",
         pill="City service page",
-        sub="Same core guide, plus a quick local note and cost pointer.",
+        sub="Same core guide, plus a quick local note and a typical cost range.",
         inner=inner,
-    )
-
-
-def cost_page_html() -> str:
-    return make_page(
-        h1="Wasp Nest Removal Cost Services",
-        canonical="/cost/",
-        description="Typical wasp nest removal cost ranges and what changes pricing.",
-        nav_key="cost",
-        pill="Cost page",
-        sub="Simple ranges and the factors that usually move the price.",
-        inner=cost_sections_html(),
-    )
-
-
-def howto_page_html() -> str:
-    return make_page(
-        h1="How to Get Rid of Wasp Nest Services",
-        canonical="/how-to/",
-        description="Clear steps for dealing with a wasp nest without making it worse.",
-        nav_key="howto",
-        pill="How-to page",
-        sub="A practical guide that prioritizes safety and reduces repeat activity.",
-        inner=howto_sections_html(),
+        show_actions=False,
     )
 
 
@@ -863,17 +685,15 @@ def main() -> None:
     # Copy the single shared image into /public/ so all pages can reference "/picture.png".
     copy_site_image(src_dir=script_dir, out_dir=out, filename=CONFIG.image_filename)
 
-    # Core pages
+    # Core page
     write_text(out / "index.html", homepage_html())
-    write_text(out / "cost" / "index.html", cost_page_html())
-    write_text(out / "how-to" / "index.html", howto_page_html())
 
     # City pages
     for city, state in CITIES:
         write_text(out / city_state_slug(city, state) / "index.html", city_page_html(city, state))
 
     # robots + sitemap
-    urls = ["/", "/cost/", "/how-to/"] + [f"/{city_state_slug(c, s)}/" for c, s in CITIES]
+    urls = ["/"] + [f"/{city_state_slug(c, s)}/" for c, s in CITIES]
     write_text(out / "robots.txt", robots_txt())
     write_text(out / "sitemap.xml", sitemap_xml(urls))
 
