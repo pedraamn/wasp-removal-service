@@ -70,10 +70,10 @@ CITIES: list[tuple[str, str]] = [
 ]
 
 # Local images (optional; keep as-is for Cloudflare Pages)
-LOCAL_IMAGE_HOME = "/assets/wasp-nest.jpg"
-LOCAL_IMAGE_CITY = "/assets/wasp-control.jpg"
-LOCAL_IMAGE_COST = "/assets/wasp-cost.jpg"
-LOCAL_IMAGE_HOWTO = "/assets/wasp-spray.jpg"
+LOCAL_IMAGE_HOME = "/picture.png"
+LOCAL_IMAGE_CITY = "/picture.png"
+LOCAL_IMAGE_COST = "/picture.png"
+LOCAL_IMAGE_HOWTO = "/picture.png"
 
 
 # -----------------------
