@@ -72,33 +72,88 @@ CITIES: list[tuple[str, str]] = [
 # -----------------------
 # Ahrefs-driven headings (US) — grouped
 # -----------------------
+H1_TITLE = "Wasp Nest/Wasp Hive Removal & Wasp Control Services"
+
+
 H2_SHARED = [
-    "Wasp Nest Removal",
-    "Wasp Control",
-    "Wasp Exterminator",
-    "Paper Wasp Nest Removal",
-    "Ground Wasp Nest Removal",
-    "Wasp Removal",
+    "What Is Wasp Nest Removal and Why It’s Necessary",
+    "Where Wasps Commonly Build Nests Around Homes",
+    "Are Wasp Nests Dangerous?",
+    "Professional Wasp Nest Removal vs DIY Methods",
+    "How Much Does Wasp Nest Removal Cost?",
+    "How a Local Wasp Exterminator Removes a Nest",
+    "When to Call a Professional for Wasp Nest Removal",
 ]
 
-H2_COST = [
-    "Wasp Nest Removal Cost",
-    "How Much Does It Cost to Remove a Wasp Nest",
-    "Cost of Wasp Nest Removal",
-    "Wasp Removal Cost",
-    "Wasp Nest Removal Price",
-    "Hornet Nest Removal Cost",
+P_SHARED = [
+    "Wasp nest removal is the process of safely eliminating an active wasp nest or hive and preventing the insects from returning. A nest indicates an established colony that will aggressively defend its territory. Unlike bees, wasps can sting multiple times and often attack in groups. Removing a nest is not just about comfort. In many cases, it’s necessary to prevent injuries, allergic reactions, and ongoing wasp activity around your home.",
+
+    "Wasps look for sheltered, undisturbed areas close to food sources. Around residential properties, nests are commonly found under roof eaves and soffits, inside wall voids or behind siding, in attics, garages, and sheds, on trees, fences, and outdoor structures, and in the ground near foundations or yards. The nest’s location plays a major role in how dangerous removal can be.",
+
+    "Yes — especially when the nest is active. Wasps will aggressively defend their nest if they feel threatened. Vibrations, lawn equipment, or improper spraying can trigger attacks. Multiple stings are common, and for individuals with allergies, even a single sting can become a medical emergency. The closer the nest is to high-traffic areas, the higher the risk.",
+
+    "DIY wasp nest removal can seem simple, but it carries real risks. Many over-the-counter sprays only kill surface-level wasps, leaving the colony intact and aggressive. Professional wasp control focuses on protective equipment and proper timing, correct treatment methods based on species, complete elimination of the colony, and reducing the risk of wasps returning. DIY methods may work in limited situations, but they are not appropriate for every nest.",
+
+    "The cost of wasp nest removal depends on factors such as nest size, location, and accessibility. Some nests can be handled quickly, while others require specialized equipment and safety measures. For a full breakdown of pricing and cost factors, see our Wasp Nest Removal Cost Guide.",
+
+    "Professional wasp removal typically involves identifying the wasp species and nest type, treating the nest when wasps are least active, eliminating the colony safely, removing or sealing the nest area, and providing guidance to help prevent future nests. This process minimizes risk and ensures the problem is fully resolved.",
+
+    "You should strongly consider professional help if the nest is inside a wall, attic, or roof, the nest is in the ground, someone has already been stung, you’re unsure what type of wasps are present, or the nest is large or difficult to access. When safety is uncertain, professional wasp control is the safest option."
 ]
+
 
 H2_HOWTO = [
-    "How to Get Rid of Wasp Nest",
-    "How to Remove Wasp Nest",
-    "Remove Wasp Nest",
-    "Best Time to Spray Wasp Nest",
-    "Wasp Spray",
-    "What Kills Wasps",
+    "Can You Remove a Wasp Nest Yourself?",
+    "Best Time of Day to Remove or Spray a Wasp Nest",
+    "How to Get Rid of a Wasp Nest on a House or Roof",
+    "How to Remove a Small or Paper Wasp Nest",
+    "How to Kill a Wasp Nest in the Ground Safely",
+    "Common Mistakes to Avoid During DIY Wasp Nest Removal",
+    "When DIY Wasp Nest Removal Is Not Recommended",
 ]
 
+P_HOWTO = [
+    "Sometimes — but not always. DIY wasp nest removal may be possible for very small, early-stage nests that are clearly visible and easy to access. However, many nests grow quickly and contain dozens or even hundreds of wasps. In those cases, attempting removal yourself significantly increases the risk of being stung. For larger or hard-to-reach nests, professional {wasp nest and hive removal services} are often the safer option.",
+
+    "Late evening or early night is the safest time. Most wasps return to their nest at night and are far less active. Attempting removal during the day increases the chance of disturbing foraging wasps and triggering aggressive behavior. Good timing reduces risk, but it does not eliminate it.",
+
+    "For exposed nests on siding or eaves, wear thick protective clothing, keep your distance and plan an exit route, use products specifically labeled for wasps, apply treatment at night, and do not knock down the nest until activity has stopped. If the nest is inside the roof or structure, DIY removal is not recommended.",
+
+    "Small paper nests early in the season may be removable if wasp activity is minimal, the nest is fully exposed, and you can maintain safe distance. If wasps remain active or begin rebuilding, professional help may be needed.",
+
+    "Ground nests are among the most dangerous to handle. Wasps can emerge from multiple openings and attack in large numbers with little warning. Because of the high risk involved, ground nests are best handled by professionals.",
+
+    "Common DIY mistakes include attempting removal during the day, standing too close to the nest, blocking your escape route, assuming wasps are gone after spraying, and leaving nest remnants behind. These mistakes cause most DIY injuries.",
+
+    "Do not attempt DIY removal if the nest is large or hidden, the nest is inside a wall or attic, you lack proper protective gear, or children or pets are nearby. When safety is a concern, contacting a provider that offers {wasp control services} is the safest next step."
+]
+
+
+H2_COST = [
+    "How Much Does Wasp Nest Removal Cost on Average?",
+    "What Affects the Cost of Wasp Nest Removal?",
+    "Cost Differences by Nest Location",
+    "Professional Wasp Extermination vs DIY Costs",
+    "Is Wasp Nest Removal Covered by Home Insurance?",
+    "When Professional Wasp Nest Removal Is Worth the Cost",
+]
+
+P_COST = [
+    "On average, wasp nest removal costs between $100 and $400. Simple, accessible nests typically fall on the lower end, while complex or hazardous removals cost more. Many homeowners compare DIY options against professional {wasp nest removal services} before deciding how to proceed.",
+
+    "Several factors influence the final cost, including nest size and wasp species, location such as roof, wall, ground, or tree, accessibility and height, level of risk involved, and emergency or after-hours service. These variables explain why pricing can vary significantly.",
+
+    "Roof or attic nests often cost more due to height and access challenges. Wall or siding nests may require sealing or partial removal. Ground nests are higher risk and labor-intensive. Tree or shed nests vary depending on size and proximity to people. Nest location is one of the biggest pricing factors.",
+
+    "DIY removal may appear cheaper upfront, but it comes with risks such as incomplete colony removal, repeat infestations, and potential medical expenses. Professional services focus on full elimination and long-term prevention.",
+
+    "Usually, no. Most homeowners insurance policies consider wasp nest removal routine maintenance and do not cover it. Coverage may only apply if the nest causes additional covered damage, which is uncommon. Always review your specific policy for confirmation.",
+
+    "Professional removal is worth it when the nest poses a clear safety risk, DIY removal could result in injury, the nest is difficult to reach, or you want long-term peace of mind. In higher-risk situations, professional {wasp control services} often provide the safest and most reliable solution."
+]
+
+
+"""
 ALSO_MENTIONED = [
     "pest control",
     "spray",
@@ -110,6 +165,7 @@ ALSO_MENTIONED = [
     "nest",
     "wasp",
 ]
+"""
 
 
 # -----------------------
@@ -490,80 +546,44 @@ def shared_sections_html(*, local_line: str | None = None) -> str:
     local = f' <span class="muted">{esc(local_line)}</span>' if local_line else ""
     return f"""
 <h2>{esc(H2_SHARED[0])}</h2>
-<p>
-  We remove a wasp nest by finding where the wasps enter, treating the nest, and taking it down once activity drops.
-  If you see steady wasp traffic to one spot, that’s usually the nest’s main entrance.{local}
-</p>
-<p class="muted">
-  If the nest is high up or you can’t confirm where it sits, don’t poke around—disturbing an active {esc(ALSO_MENTIONED[7])} is a fast way to get stung.
-</p>
+<p>{esc(P_SHARED[0])}</</p>
 
 <h2>{esc(H2_SHARED[1])}</h2>
-<p>
-  Wasp control is about preventing repeat activity after the nest is handled. That usually means checking common rebuild spots
-  and reducing easy access points—small gaps, sheltered ledges, and other places a new nest can get started.
-</p>
+<p>{esc(P_SHARED[1])}</</p>
 
 <h2>{esc(H2_SHARED[2])}</h2>
-<p>
-  A wasp exterminator is the right call when access is risky or the nest is in a tight void. If you’re worried about {esc(ALSO_MENTIONED[4])},
-  getting it handled safely is the smarter move.
-</p>
+<p>{esc(P_SHARED[2])}</</p>
 
 <h2>{esc(H2_SHARED[3])}</h2>
-<p>
-  Paper wasp nest removal is often needed under eaves and overhangs where nests stay dry and protected. The nest can look small from the ground,
-  but activity level is the better clue—heavy traffic usually means a larger colony than it appears.
-</p>
+<p>{esc(P_SHARED[3])}</</p>
 
 <h2>{esc(H2_SHARED[4])}</h2>
-<p>
-  Ground wasp nest removal is different because the entrance can be a small hole and the nest can spread under the soil.
-  Treating the wrong spot can make the area “hot” with defensive wasps, so approach and timing matter more here than almost anywhere else.
-</p>
+<p>{esc(P_SHARED[4])}</</p>
 
 <h2>{esc(H2_SHARED[5])}</h2>
-<p>
-  Wasp removal is the hands-on work: locate the nest, treat it, and confirm activity drops. Spraying random surfaces doesn’t solve the problem—the nest does.
-  If you keep seeing wasps returning to the same spot, you’re missing the actual entrance.
-</p>
+<p>{esc(P_SHARED[5])}</</p>
 """.rstrip()
 
 
 def cost_sections_html() -> str:
     return f"""
 <h2>{esc(H2_COST[0])}</h2>
-<p>
-  Wasp nest removal cost depends mostly on access and nest location. A visible nest under an eave is typically quicker than one tucked into a structure.
-</p>
+<p>{esc(P_COST[0])}</p>
 
 <h2>{esc(H2_COST[1])}</h2>
-<p>
-  Most homeowners pay somewhere between ${CONFIG.cost_low} and ${CONFIG.cost_high} for a single nest removal.
-  High nests, hidden nests, and extra time on site are what usually push the total higher.
-</p>
+<p>{esc(P_COST[1])}</p>
 
 <h2>{esc(H2_COST[2])}</h2>
-<p>
-  The cost of wasp nest removal moves with labor time and risk. Bigger nests, awkward rooflines, and repeated trips are common drivers behind a higher {esc(ALSO_MENTIONED[5])}.
-</p>
+<p>{esc(P_COST[2])}</p>
 
 <h2>{esc(H2_COST[3])}</h2>
-<p>
-  Wasp removal cost can be lower when the nest is small and easy to access, and higher when it’s established and defensive.
-  If the nest has already been disturbed, the job can take longer because the wasps are more aggressive.
-</p>
+<p>{esc(P_COST[3])}</p>
 
 <h2>{esc(H2_COST[4])}</h2>
-<p>
-  Wasp nest removal price is basically the same question as “cost,” just phrased differently. What matters is whether the nest is simple to reach and remove,
-  or whether it needs special handling for safety.
-</p>
+<p>{esc(P_COST[4])}</p>
 
 <h2>{esc(H2_COST[5])}</h2>
-<p>
-  Hornet nest removal cost is often higher because hornet nests can be larger and more defensive, and they’re frequently placed higher or deeper in sheltered areas.
-</p>
+<p>{esc(P_COST[5])}</p>
 
 <hr />
 
@@ -576,36 +596,22 @@ def cost_sections_html() -> str:
 def howto_sections_html() -> str:
     return f"""
 <h2>{esc(H2_HOWTO[0])}</h2>
-<p>
-  To get rid of a wasp nest, don’t provoke it first. The safest plan is to identify the entrance, keep people and pets away, and treat the nest when activity is low.
-  If you can’t clearly see the nest or it’s high up, skip this and call a pro.
-</p>
+<p>{esc(P_HOWTO[0])}</p>
 
 <h2>{esc(H2_HOWTO[1])}</h2>
-<p>
-  To remove a wasp nest, you treat it first and only take it down once activity drops. Pulling down an active nest is what triggers defensive behavior and increases the risk of {esc(ALSO_MENTIONED[4])}.
-</p>
+<p>{esc(P_HOWTO[1])}</p>
 
 <h2>{esc(H2_HOWTO[2])}</h2>
-<p>
-  “Remove wasp nest” really means removing the source of activity, not just spraying around. If wasps keep returning to the same spot, the nest entrance is still active.
-</p>
+<p>{esc(P_HOWTO[2])}</p>
 
 <h2>{esc(H2_HOWTO[3])}</h2>
-<p>
-  The best time to spray a wasp nest is when activity is low and fewer wasps are flying in and out. Bad timing can make the nest more defensive and the situation worse.
-</p>
+<p>{esc(P_HOWTO[3])}</p>
 
 <h2>{esc(H2_HOWTO[4])}</h2>
-<p>
-  Wasp spray only helps if you can safely hit the nest and follow directions. Improvising with a {esc(ALSO_MENTIONED[2])} or mixing products can create safety issues—don’t do that.
-</p>
+<p>{esc(P_HOWTO[4])}</p>
 
 <h2>{esc(H2_HOWTO[5])}</h2>
-<p>
-  What kills wasps depends on the product and direct contact, but the bigger point is targeting the nest. If you can’t safely reach it,
-  trying to “solve it from a distance” usually just spreads activity and increases sting risk.
-</p>
+<p>{esc(P_HOWTO[5])}</p>
 """.rstrip()
 
 
@@ -641,7 +647,7 @@ def make_page(*, h1: str, canonical: str, description: str, nav_key: str, sub: s
 
 
 def homepage_html() -> str:
-    h1 = CONFIG.service_name
+    h1 = H1_TITLE
     city_links = "\n".join(
         f'<li><a href="{esc("/" + city_state_slug(city, state) + "/")}">{esc(city)}, {esc(state)}</a></li>'
         for city, state in CITIES
@@ -689,7 +695,7 @@ def city_page_html(city: str, state: str) -> str:
     )
 
     return make_page(
-        h1=city_h1(CONFIG.service_name, city, state),
+        h1=city_h1(H1_TITLE, city, state),
         canonical=f"/{city_state_slug(city, state)}/",
         description=f"Wasp nest removal and wasp control guide with local context for {city}, {state}.",
         nav_key="home",
@@ -700,7 +706,7 @@ def city_page_html(city: str, state: str) -> str:
 
 def cost_page_html() -> str:
     return make_page(
-        h1="Wasp Nest Removal Cost Services",
+        h1="Wasp Nest Removal Cost",
         canonical="/cost/",
         description="Typical wasp nest removal cost ranges and what changes pricing.",
         nav_key="cost",
@@ -711,7 +717,7 @@ def cost_page_html() -> str:
 
 def howto_page_html() -> str:
     return make_page(
-        h1="How to Get Rid of Wasp Nest Services",
+        h1="How to Get Rid of Wasp Nests",
         canonical="/how-to/",
         description="Clear steps for dealing with a wasp nest without making it worse.",
         nav_key="howto",
