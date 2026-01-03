@@ -27,6 +27,7 @@ from pathlib import Path
 import html
 import os
 import re
+import shutil
 
 
 # -----------------------
@@ -34,12 +35,12 @@ import re
 # -----------------------
 @dataclass(frozen=True)
 class SiteConfig:
-    # H1/title must be <= 70 chars, exactly one H1, and must include "Services"
     service_name: str = "Wasp Nest/Wasp Hive Removal & Wasp Control Services"
     brand_name: str = "Wasp Nest Removal Company"
     cta_text: str = "Get Free Estimate"
     cta_href: str = "mailto:hello@example.com?subject=Free%20Quote%20Request"
     output_dir: Path = Path("public")
+    image_filename: str = "picture.png"  # sits next to generate.py
     cost_low: int = 150
     cost_high: int = 450
 
@@ -69,23 +70,9 @@ CITIES: list[tuple[str, str]] = [
     ("Washington", "DC"),
 ]
 
-# Local images (optional; keep as-is for Cloudflare Pages)
-LOCAL_IMAGE_HOME = "/picture.png"
-LOCAL_IMAGE_CITY = "/picture.png"
-LOCAL_IMAGE_COST = "/picture.png"
-LOCAL_IMAGE_HOWTO = "/picture.png"
-
-
 # -----------------------
 # Ahrefs-driven headings (US) — grouped
-# Notes:
-# - Main + City pages use the EXACT SAME H2 set (your requirement).
-# - Cost and How-To use distinct H2 sets and do NOT reuse headings across them.
-# - No DIY heading.
-# These terms are sourced from Ahrefs MCP related terms / search suggestions.
 # -----------------------
-PRIMARY_KEYWORD = "wasp nest removal"
-
 H2_SHARED = [
     "Wasp Nest Removal",
     "Wasp Control",
@@ -113,7 +100,6 @@ H2_HOWTO = [
     "What Kills Wasps",
 ]
 
-# Also-mentioned / co-occurring terms (Ahrefs also_talk_about) — filtered to relevant
 ALSO_MENTIONED = [
     "pest control",
     "spray",
@@ -152,8 +138,26 @@ def clamp_title(title: str, max_chars: int = 70) -> str:
     return title[: max_chars - 1].rstrip() + "…"
 
 
-def make_city_h1(service: str, city: str, state: str) -> str:
+def city_h1(service: str, city: str, state: str) -> str:
     return clamp_title(f"{service} in {city}, {state}", 70)
+
+
+def write_text(out_path: Path, content: str) -> None:
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(content, encoding="utf-8")
+
+
+def reset_output_dir(p: Path) -> None:
+    if p.exists():
+        shutil.rmtree(p)
+    p.mkdir(parents=True, exist_ok=True)
+
+
+def copy_site_image(*, src_dir: Path, out_dir: Path, filename: str) -> None:
+    src = src_dir / filename
+    if not src.exists():
+        raise FileNotFoundError(f"Missing image next to generate.py: {src}")
+    shutil.copyfile(src, out_dir / filename)
 
 
 # -----------------------
@@ -328,7 +332,7 @@ footer{
 
 
 # -----------------------
-# HTML SHELL
+# HTML BUILDING BLOCKS
 # -----------------------
 def nav_html(current: str) -> str:
     def item(href: str, label: str, key: str) -> str:
@@ -346,6 +350,7 @@ def nav_html(current: str) -> str:
 
 
 def base_html(*, title: str, canonical_path: str, description: str, current_nav: str, body: str) -> str:
+    # title == h1 is enforced by callers; keep this thin.
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -402,7 +407,10 @@ def footer_block() -> str:
 """.rstrip()
 
 
-def page_shell(*, h1: str, sub: str, pill: str, img_src: str, inner_html: str) -> str:
+def page_shell(*, h1: str, sub: str, pill: str, inner_html: str) -> str:
+    # Single image used everywhere. Since we copy picture.png into /public/,
+    # it can be referenced as "/picture.png" from any route.
+    img_src = f"/{CONFIG.image_filename}"
     return (
         header_block(h1=h1, sub=sub)
         + f"""
@@ -421,7 +429,7 @@ def page_shell(*, h1: str, sub: str, pill: str, img_src: str, inner_html: str) -
 
 
 # -----------------------
-# CONTENT
+# CONTENT SECTIONS
 # -----------------------
 def shared_sections_html(*, local_line: str | None = None) -> str:
     local = f' <span class="muted">{esc(local_line)}</span>' if local_line else ""
@@ -547,18 +555,26 @@ def howto_sections_html() -> str:
 
 
 # -----------------------
-# PAGES
+# PAGE FACTORY
 # -----------------------
-def homepage() -> str:
-    h1 = clamp_title(CONFIG.service_name, 70)
-    title = h1
-    description = clamp_title("Straight answers on wasp nest removal and wasp control.", 155)
+def make_page(*, h1: str, canonical: str, description: str, nav_key: str, pill: str, sub: str, inner: str) -> str:
+    h1 = clamp_title(h1, 70)
+    title = h1  # enforce title == h1
+    return base_html(
+        title=title,
+        canonical_path=canonical,
+        description=clamp_title(description, 155),
+        current_nav=nav_key,
+        body=page_shell(h1=h1, sub=sub, pill=pill, inner_html=inner),
+    )
 
+
+def homepage_html() -> str:
+    h1 = CONFIG.service_name
     city_links = "\n".join(
         f'<li><a href="{esc("/" + city_state_slug(city, state) + "/")}">{esc(city)}, {esc(state)}</a></li>'
         for city, state in CITIES
     )
-
     inner = (
         shared_sections_html()
         + """
@@ -577,31 +593,18 @@ def homepage() -> str:
 """
     )
 
-    body = page_shell(
+    return make_page(
         h1=h1,
-        sub="How removal works, what prevents repeat activity, and when to call help.",
+        canonical="/",
+        description="Straight answers on wasp nest removal and wasp control.",
+        nav_key="home",
         pill="Main service page",
-        img_src=LOCAL_IMAGE_HOME,
-        inner_html=inner,
-    )
-    return base_html(
-        title=title,
-        canonical_path="/",
-        description=description,
-        current_nav="home",
-        body=body,
+        sub="How removal works, what prevents repeat activity, and when to call help.",
+        inner=inner,
     )
 
 
-def city_page(*, city: str, state: str) -> str:
-    h1 = make_city_h1(CONFIG.service_name, city, state)
-    title = h1
-    description = clamp_title(
-        f"Wasp nest removal and wasp control guide with local context for {city}, {state}.",
-        155,
-    )
-    canonical = f"/{city_state_slug(city, state)}/"
-
+def city_page_html(city: str, state: str) -> str:
     inner = (
         shared_sections_html(local_line=f"Serving {city}, {state}.")
         + f"""
@@ -614,109 +617,84 @@ def city_page(*, city: str, state: str) -> str:
 """
     )
 
-    body = page_shell(
-        h1=h1,
-        sub="Same core guide, plus a quick local note and cost pointer.",
+    return make_page(
+        h1=city_h1(CONFIG.service_name, city, state),
+        canonical=f"/{city_state_slug(city, state)}/",
+        description=f"Wasp nest removal and wasp control guide with local context for {city}, {state}.",
+        nav_key="home",
         pill="City service page",
-        img_src=LOCAL_IMAGE_CITY,
-        inner_html=inner,
-    )
-    return base_html(
-        title=title,
-        canonical_path=canonical,
-        description=description,
-        current_nav="home",
-        body=body,
+        sub="Same core guide, plus a quick local note and cost pointer.",
+        inner=inner,
     )
 
 
-def cost_page() -> str:
-    h1 = clamp_title("Wasp Nest Removal Cost Services", 70)
-    title = h1
-    description = clamp_title("Typical wasp nest removal cost ranges and what changes pricing.", 155)
-    canonical = "/cost/"
-
-    body = page_shell(
-        h1=h1,
-        sub="Simple ranges and the factors that usually move the price.",
+def cost_page_html() -> str:
+    return make_page(
+        h1="Wasp Nest Removal Cost Services",
+        canonical="/cost/",
+        description="Typical wasp nest removal cost ranges and what changes pricing.",
+        nav_key="cost",
         pill="Cost page",
-        img_src=LOCAL_IMAGE_COST,
-        inner_html=cost_sections_html(),
-    )
-    return base_html(
-        title=title,
-        canonical_path=canonical,
-        description=description,
-        current_nav="cost",
-        body=body,
+        sub="Simple ranges and the factors that usually move the price.",
+        inner=cost_sections_html(),
     )
 
 
-def howto_page() -> str:
-    h1 = clamp_title("How to Get Rid of Wasp Nest Services", 70)
-    title = h1
-    description = clamp_title("Clear steps for dealing with a wasp nest without making it worse.", 155)
-    canonical = "/how-to/"
-
-    body = page_shell(
-        h1=h1,
-        sub="A practical guide that prioritizes safety and reduces repeat activity.",
+def howto_page_html() -> str:
+    return make_page(
+        h1="How to Get Rid of Wasp Nest Services",
+        canonical="/how-to/",
+        description="Clear steps for dealing with a wasp nest without making it worse.",
+        nav_key="howto",
         pill="How-to page",
-        img_src=LOCAL_IMAGE_HOWTO,
-        inner_html=howto_sections_html(),
-    )
-    return base_html(
-        title=title,
-        canonical_path=canonical,
-        description=description,
-        current_nav="howto",
-        body=body,
+        sub="A practical guide that prioritizes safety and reduces repeat activity.",
+        inner=howto_sections_html(),
     )
 
 
 # -----------------------
-# GENERATION
+# ROBOTS + SITEMAP
 # -----------------------
-def write_file(path: Path, content: str) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(content, encoding="utf-8")
+def robots_txt() -> str:
+    return "User-agent: *\nAllow: /\nSitemap: /sitemap.xml\n"
 
 
-def clear_dir(p: Path) -> None:
-    if not p.exists():
-        return
-    for root, dirs, files in os.walk(p, topdown=False):
-        for name in files:
-            Path(root, name).unlink()
-        for name in dirs:
-            Path(root, name).rmdir()
-
-
-def main() -> None:
-    clear_dir(CONFIG.output_dir)
-    CONFIG.output_dir.mkdir(parents=True, exist_ok=True)
-
-    # Core pages
-    write_file(CONFIG.output_dir / "index.html", homepage())
-    write_file(CONFIG.output_dir / "cost" / "index.html", cost_page())
-    write_file(CONFIG.output_dir / "how-to" / "index.html", howto_page())
-
-    # City pages
-    for city, state in CITIES:
-        write_file(CONFIG.output_dir / city_state_slug(city, state) / "index.html", city_page(city=city, state=state))
-
-    # robots + sitemap (minimal)
-    write_file(CONFIG.output_dir / "robots.txt", "User-agent: *\nAllow: /\nSitemap: /sitemap.xml\n")
-    urls = ["/", "/cost/", "/how-to/"] + [f"/{city_state_slug(c, s)}/" for c, s in CITIES]
-    sitemap = (
+def sitemap_xml(urls: list[str]) -> str:
+    return (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls)
         + "</urlset>\n"
     )
-    write_file(CONFIG.output_dir / "sitemap.xml", sitemap)
 
-    print(f"✅ Generated {len(urls)} pages into: {CONFIG.output_dir.resolve()}")
+
+# -----------------------
+# MAIN
+# -----------------------
+def main() -> None:
+    script_dir = Path(__file__).resolve().parent
+    out = CONFIG.output_dir
+
+    reset_output_dir(out)
+
+    # Copy the single shared image into /public/ so all pages can reference "/picture.png".
+    copy_site_image(src_dir=script_dir, out_dir=out, filename=CONFIG.image_filename)
+
+    # Core pages
+    write_text(out / "index.html", homepage_html())
+    write_text(out / "cost" / "index.html", cost_page_html())
+    write_text(out / "how-to" / "index.html", howto_page_html())
+
+    # City pages
+    for city, state in CITIES:
+        write_text(out / city_state_slug(city, state) / "index.html", city_page_html(city, state))
+
+    # robots + sitemap
+    urls = ["/", "/cost/", "/how-to/"] + [f"/{city_state_slug(c, s)}/" for c, s in CITIES]
+    write_text(out / "robots.txt", robots_txt())
+    write_text(out / "sitemap.xml", sitemap_xml(urls))
+
+    print(f"✅ Generated {len(urls)} pages into: {out.resolve()}")
 
 
 if __name__ == "__main__":
