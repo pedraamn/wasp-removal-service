@@ -8,45 +8,42 @@
   <link rel="canonical" href="/los-angeles-ca/" />
   <style>
 :root{
-  /* Warm, home-services palette (less "techy") */
-  --bg: #fbfaf7;
-  --surface: #ffffff;
-  --ink: #1f2937;       /* slate-800 */
-  --muted: #5b6777;     /* warm slate */
-  --line: #e6e1d8;      /* warm border */
-  --soft: #f4f1ea;      /* warm panel */
-  --accent: #2f6f4e;    /* calm green */
-  --accent2:#24573d;    /* darker green */
-  --accent3:#b45309;    /* subtle amber (sparingly) */
-  --max: 980px;
-  --radius: 16px;
-  --shadow: 0 10px 26px rgba(17,24,39,.08);
-  --shadow2: 0 6px 18px rgba(17,24,39,.07);
-}
+  --bg:#fbf7f0;
+  --surface:#ffffff;
+  --ink:#1f2937;
+  --muted:#4b5563;
+  --line:#e7ded2;
 
+  --accent:#2f6f4e;   /* dependable green */
+  --accent2:#255a3e;  /* darker green */
+  --soft:#f4efe6;     /* warm surface */
+  --soft2:#fffaf3;    /* warm highlight */
+
+  --max:980px;
+  --radius:16px;
+  --shadow:0 10px 30px rgba(17,24,39,0.08);
+}
 *{box-sizing:border-box}
 html{color-scheme:light}
 body{
   margin:0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
   color:var(--ink);
-  background:
-    radial-gradient(900px 500px at 15% -10%, rgba(47,111,78,.10), rgba(47,111,78,0) 60%),
-    radial-gradient(900px 500px at 95% 0%, rgba(180,83,9,.08), rgba(180,83,9,0) 60%),
-    var(--bg);
-  line-height:1.6;
+  background:radial-gradient(1200px 600px at 10% -10%, var(--soft2), transparent 60%),
+             radial-gradient(900px 400px at 90% 0%, #f3f7f3, transparent 55%),
+             var(--bg);
+  line-height:1.55;
 }
-
 a{color:inherit}
-a:focus{outline:2px solid rgba(47,111,78,.45); outline-offset:2px}
+a:focus{outline:2px solid var(--accent); outline-offset:2px}
 
 .topbar{
   position:sticky;
   top:0;
   z-index:50;
-  background: rgba(251,250,247,.92);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--line);
+  background:rgba(251,247,240,0.92);
+  backdrop-filter:saturate(140%) blur(8px);
+  border-bottom:1px solid rgba(231,222,210,0.9);
 }
 .topbar-inner{
   max-width:var(--max);
@@ -55,34 +52,17 @@ a:focus{outline:2px solid rgba(47,111,78,.45); outline-offset:2px}
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:12px;
+  gap:14px;
 }
 .brand{
   font-weight:900;
   letter-spacing:-0.02em;
   text-decoration:none;
-  display:flex;
-  align-items:center;
-  gap:10px;
 }
-.brand-mark{
-  width:34px;
-  height:34px;
-  border-radius:12px;
-  background: linear-gradient(135deg, rgba(47,111,78,.16), rgba(180,83,9,.10));
-  border:1px solid var(--line);
-  box-shadow: var(--shadow2);
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:900;
-  color: var(--accent2);
-}
-
 .nav{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:12px;
   flex-wrap:wrap;
   justify-content:flex-end;
 }
@@ -92,49 +72,50 @@ a:focus{outline:2px solid rgba(47,111,78,.45); outline-offset:2px}
   color:var(--muted);
   padding:7px 9px;
   border-radius:12px;
-  border:1px solid transparent;
+  transition:background .15s ease, border-color .15s ease, color .15s ease, transform .15s ease;
 }
-.nav a:hover{
-  background: rgba(244,241,234,.9);
-  border-color: var(--line);
-  color: var(--ink);
+.nav a:hover{background:rgba(255,255,255,0.6)}
+.nav a[aria-current="page"]{
+  color:var(--ink);
+  background:rgba(255,255,255,0.75);
+  border:1px solid var(--line);
 }
 
-/* Topbar CTA = white button with readable text */
 .btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
+  display:inline-block;
   padding:9px 12px;
   border-radius:12px;
   text-decoration:none;
   font-weight:900;
   font-size:13px;
+  border:1px solid transparent;
+  transition:transform .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
+}
+.btn:active{transform:translateY(1px)}
+.btn-primary{
+  background:var(--accent);
+  color:#fff;
+  box-shadow:0 8px 18px rgba(47,111,78,0.20);
+}
+.btn-primary:hover{background:var(--accent2); box-shadow:0 10px 22px rgba(47,111,78,0.24)}
+/* Toolbar CTA: white button, readable text */
+.btn-ghost{
+  background:#fff;
+  color:var(--ink);
   border:1px solid var(--line);
-  box-shadow: var(--shadow2);
-  transition: transform .08s ease, box-shadow .12s ease, background .12s ease;
+  box-shadow:0 6px 16px rgba(17,24,39,0.06);
 }
-.btn:active{transform: translateY(1px)}
-.btn:focus{outline:2px solid rgba(47,111,78,.45); outline-offset:2px}
-
-.btn-cta{
-  background:#ffffff;
-  color: var(--ink);
-}
-.btn-cta:hover{
-  background: #fdfcf9;
-  box-shadow: var(--shadow);
-}
+.btn-ghost:hover{background:#fff; border-color:#d9cbb9; box-shadow:0 10px 22px rgba(17,24,39,0.08)}
+.btn:focus{outline:2px solid var(--accent); outline-offset:2px}
 
 header{
-  border-bottom:1px solid var(--line);
-  background: linear-gradient(180deg, rgba(255,255,255,.65), rgba(255,255,255,.25));
+  border-bottom:1px solid rgba(231,222,210,0.9);
+  background:linear-gradient(180deg, rgba(255,250,243,0.92), rgba(255,250,243,0.55));
 }
 .hero{
   max-width:var(--max);
   margin:0 auto;
-  padding:32px 18px 20px;
+  padding:34px 18px 22px;
   display:grid;
   gap:10px;
 }
@@ -142,32 +123,8 @@ header{
   margin:0;
   font-size:30px;
   letter-spacing:-0.03em;
-  line-height:1.18;
 }
-.sub{
-  margin:0;
-  color:var(--muted);
-  max-width:74ch;
-  font-size:14px;
-}
-.hero-actions{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:6px;
-}
-.btn-primary{
-  background: var(--accent);
-  color:#fff;
-  border-color: rgba(0,0,0,0);
-  box-shadow: var(--shadow);
-}
-.btn-primary:hover{background: var(--accent2)}
-.btn-ghost{
-  background: rgba(255,255,255,.7);
-  color: var(--ink);
-}
-.btn-ghost:hover{background: rgba(255,255,255,.95)}
+.sub{margin:0; color:var(--muted); max-width:74ch; font-size:14px}
 
 main{
   max-width:var(--max);
@@ -175,35 +132,20 @@ main{
   padding:22px 18px 44px;
 }
 .card{
-  background:var(--surface);
+  background:rgba(255,255,255,0.92);
   border:1px solid var(--line);
   border-radius:var(--radius);
   padding:18px;
-  box-shadow: var(--shadow2);
+  box-shadow:var(--shadow);
 }
-.pill{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:6px 10px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:900;
-  background: rgba(244,241,234,.9);
-  border:1px solid var(--line);
-  color: var(--muted);
-}
-
 .img{
   margin-top:12px;
   border-radius:14px;
   overflow:hidden;
-  border:1px solid var(--line);
-  background: #fff;
-  box-shadow: 0 10px 26px rgba(17,24,39,.06);
+  border:1px solid rgba(231,222,210,0.9);
+  background:#fff;
 }
-.img img{display:block; width:100%; height:auto}
-
+.img img{display:block; width:100%; height:auto; transform:scale(1.01)}
 h2{
   margin:18px 0 8px;
   font-size:16px;
@@ -211,42 +153,46 @@ h2{
 }
 p{margin:0 0 10px}
 .muted{color:var(--muted); font-size:13px}
+hr{border:0; border-top:1px solid rgba(231,222,210,0.9); margin:18px 0}
 
-hr{border:0; border-top:1px solid var(--line); margin:18px 0}
-
-/* Conversion callout (city pages) */
 .callout{
-  margin-top:14px;
-  border-radius: 14px;
-  padding:12px 12px;
-  border:1px solid var(--line);
-  background:
-    linear-gradient(135deg, rgba(47,111,78,.10), rgba(47,111,78,0) 55%),
-    linear-gradient(135deg, rgba(180,83,9,.09), rgba(180,83,9,0) 55%),
-    rgba(244,241,234,.75);
+  margin:16px 0 4px;
+  padding:14px 14px 12px;
+  border-radius:14px;
+  border:1px solid rgba(47,111,78,0.25);
+  background:linear-gradient(180deg, rgba(47,111,78,0.06), rgba(47,111,78,0.03));
 }
-.callout strong{
-  display:block;
-  font-size:13px;
-  letter-spacing:-0.01em;
+.callout .kicker{
+  font-weight:900;
+  font-size:12px;
+  letter-spacing:0.02em;
+  color:var(--accent2);
+  text-transform:uppercase;
+  margin:0 0 6px;
 }
-.callout p{margin:6px 0 0}
-.callout .callout-row{
+.callout p{margin:0 0 8px}
+.callout .row{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:10px;
   flex-wrap:wrap;
 }
-.callout .range{
-  font-weight:900;
-  color: var(--accent2);
+.callout .big{
+  font-weight:950;
+  letter-spacing:-0.02em;
+  font-size:16px;
+}
+.callout .note{
+  color:var(--muted);
+  font-size:12px;
+  margin:0;
 }
 
 .city-grid{
   list-style:none;
   padding:0;
-  margin:12px 0 0;
+  margin:10px 0 0;
   display:grid;
   gap:10px;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
@@ -255,57 +201,55 @@ hr{border:0; border-top:1px solid var(--line); margin:18px 0}
   display:block;
   text-decoration:none;
   color:var(--ink);
-  background: #ffffff;
+  background:rgba(255,255,255,0.92);
   border:1px solid var(--line);
   border-radius:14px;
-  padding:10px 12px;
+  padding:11px 12px;
   font-weight:800;
   font-size:14px;
-  box-shadow: 0 6px 18px rgba(17,24,39,.05);
-  transition: transform .08s ease, box-shadow .12s ease;
+  box-shadow:0 10px 24px rgba(17,24,39,0.05);
+  transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
 }
 .city-grid a:hover{
-  transform: translateY(-1px);
-  box-shadow: 0 10px 26px rgba(17,24,39,.08);
+  transform:translateY(-1px);
+  border-color:#d9cbb9;
+  box-shadow:0 14px 28px rgba(17,24,39,0.07);
 }
-.city-grid a:active{transform: translateY(0px)}
 
 footer{
-  border-top:1px solid var(--line);
-  background: rgba(255,255,255,.35);
+  border-top:1px solid rgba(231,222,210,0.9);
+  background:linear-gradient(180deg, rgba(255,250,243,0.55), rgba(255,250,243,0.9));
 }
 .footer-inner{
   max-width:var(--max);
   margin:0 auto;
-  padding:26px 18px;
+  padding:28px 18px;
   display:grid;
   gap:10px;
+  text-align:left;
 }
 .footer-inner h2{margin:0; font-size:18px; letter-spacing:-0.02em}
-.footer-inner .sub{font-size:13px}
+.footer-links{display:flex; gap:12px; flex-wrap:wrap}
+.footer-links a{color:var(--muted); text-decoration:none; font-size:13px; padding:6px 0}
 .small{color:var(--muted); font-size:12px; margin-top:8px}
   </style>
 </head>
 <body>
   <div class="topbar">
     <div class="topbar-inner">
-      <a class="brand" href="/">
-        <span class="brand-mark" aria-hidden="true">W</span>
-        <span>Wasp Nest Removal Company</span>
-      </a>
-      <nav class="nav" aria-label="Primary navigation"><a href="/" aria-current="page">Home</a><a class="btn btn-cta" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a></nav>
+      <a class="brand" href="/">Wasp Nest Removal Company</a>
+      <nav class="nav" aria-label="Primary navigation"><a href="/" aria-current="page">Home</a><a href="/cost/">Cost</a><a href="/how-to/">How-To</a><a class="btn btn-ghost" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a></nav>
     </div>
   </div>
 
 <header>
   <div class="hero">
     <h1>Wasp Nest/Wasp Hive Removal &amp; Wasp Control Services in Los Angeles, CA</h1>
-    <p class="sub">Same core guide, plus a quick local note and a typical cost range.</p>
+    <p class="sub">Same core guide, plus a quick local note and pricing context.</p>
   </div>
 </header>
 <main>
   <section class="card">
-    <div class="pill">City service page</div>
     <div class="img">
       <img src="/picture.png" alt="Service image" loading="lazy" />
     </div>
@@ -349,15 +293,20 @@ footer{
   If you keep seeing wasps returning to the same spot, you’re missing the actual entrance.
 </p>
 <div class="callout" role="note" aria-label="Typical cost range">
-  <div class="callout-row">
-    <strong>Typical cost range in Los Angeles, CA</strong>
-    <div class="range">$150–$450</div>
+  <p class="kicker">Typical cost range in Los Angeles, CA</p>
+  <div class="row">
+    <div class="big">$150–$450 for one nest (common range)</div>
+    <a class="btn btn-primary" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a>
   </div>
-  <p class="muted">
-    Most pricing depends on access and nest location (eaves vs. inside a structure, height, and how established it is).
-    For an exact quote, use the estimate button.
-  </p>
+  <p class="note">Final pricing depends on access, nest location, and time on site.</p>
 </div>
+<hr />
+<h2>Wasp Nest Removal Cost</h2>
+<p class="muted">
+  Typical installed range for one nest often falls around $150–$450. Access and nest location drive most pricing.
+  See the <a href="/cost/">cost page</a> for details.
+</p>
+
   </section>
 </main>
 
@@ -367,6 +316,11 @@ footer{
     <p class="sub">Ready to move forward? Request a free quote.</p>
     <div>
       <a class="btn btn-primary" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a>
+    </div>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/cost/">Cost</a>
+      <a href="/how-to/">How-To</a>
     </div>
     <div class="small">© Wasp Nest Removal Company. All rights reserved.</div>
   </div>
