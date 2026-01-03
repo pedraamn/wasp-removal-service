@@ -8,20 +8,20 @@
   <link rel="canonical" href="/san-diego-ca/" />
   <style>
 :root{
-  --bg:#fbf7f0;
+  --bg:#fafaf9;
   --surface:#ffffff;
-  --ink:#1f2937;
+  --ink:#111827;
   --muted:#4b5563;
-  --line:#e7ded2;
+  --line:#e7e5e4;
+  --soft:#f5f5f4;
 
-  --accent:#2f6f4e;   /* dependable green */
-  --accent2:#255a3e;  /* darker green */
-  --soft:#f4efe6;     /* warm surface */
-  --soft2:#fffaf3;    /* warm highlight */
+  --cta:#16a34a;
+  --cta2:#15803d;
 
   --max:980px;
   --radius:16px;
-  --shadow:0 10px 30px rgba(17,24,39,0.08);
+  --shadow:0 10px 30px rgba(17,24,39,0.06);
+  --shadow2:0 10px 24px rgba(17,24,39,0.08);
 }
 *{box-sizing:border-box}
 html{color-scheme:light}
@@ -29,21 +29,19 @@ body{
   margin:0;
   font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
   color:var(--ink);
-  background:radial-gradient(1200px 600px at 10% -10%, var(--soft2), transparent 60%),
-             radial-gradient(900px 400px at 90% 0%, #f3f7f3, transparent 55%),
-             var(--bg);
-  line-height:1.55;
+  background:var(--bg);
+  line-height:1.6;
 }
 a{color:inherit}
-a:focus{outline:2px solid var(--accent); outline-offset:2px}
+a:focus{outline:2px solid var(--cta); outline-offset:2px}
 
 .topbar{
   position:sticky;
   top:0;
   z-index:50;
-  background:rgba(251,247,240,0.92);
-  backdrop-filter:saturate(140%) blur(8px);
-  border-bottom:1px solid rgba(231,222,210,0.9);
+  background:rgba(250,250,249,0.92);
+  backdrop-filter:saturate(140%) blur(10px);
+  border-bottom:1px solid var(--line);
 }
 .topbar-inner{
   max-width:var(--max);
@@ -70,82 +68,89 @@ a:focus{outline:2px solid var(--accent); outline-offset:2px}
   text-decoration:none;
   font-size:13px;
   color:var(--muted);
-  padding:7px 9px;
+  padding:7px 10px;
   border-radius:12px;
-  transition:background .15s ease, border-color .15s ease, color .15s ease, transform .15s ease;
+  border:1px solid transparent;
 }
-.nav a:hover{background:rgba(255,255,255,0.6)}
+.nav a:hover{
+  background:var(--soft);
+  border-color:var(--line);
+}
 .nav a[aria-current="page"]{
   color:var(--ink);
-  background:rgba(255,255,255,0.75);
+  background:var(--soft);
   border:1px solid var(--line);
 }
 
 .btn{
   display:inline-block;
   padding:9px 12px;
+  background:var(--cta);
+  color:#fff;
   border-radius:12px;
   text-decoration:none;
   font-weight:900;
   font-size:13px;
-  border:1px solid transparent;
-  transition:transform .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
+  border:1px solid rgba(0,0,0,0.04);
+  box-shadow:0 8px 18px rgba(22,163,74,0.18);
 }
-.btn:active{transform:translateY(1px)}
-.btn-primary{
-  background:var(--accent);
+.btn:hover{background:var(--cta2)}
+.btn:focus{outline:2px solid var(--cta2); outline-offset:2px}
+
+/* IMPORTANT: nav links apply grey text; ensure CTA stays white in the toolbar */
+.nav a.btn{
   color:#fff;
-  box-shadow:0 8px 18px rgba(47,111,78,0.20);
+  background:var(--cta);
+  border-color:rgba(0,0,0,0.04);
 }
-.btn-primary:hover{background:var(--accent2); box-shadow:0 10px 22px rgba(47,111,78,0.24)}
-/* Toolbar CTA: white button, readable text */
-.btn-ghost{
-  background:#fff;
-  color:var(--ink);
-  border:1px solid var(--line);
-  box-shadow:0 6px 16px rgba(17,24,39,0.06);
-}
-.btn-ghost:hover{background:#fff; border-color:#d9cbb9; box-shadow:0 10px 22px rgba(17,24,39,0.08)}
-.btn:focus{outline:2px solid var(--accent); outline-offset:2px}
+.nav a.btn:hover{background:var(--cta2)}
+.nav a.btn:focus{outline:2px solid var(--cta2); outline-offset:2px}
 
 header{
-  border-bottom:1px solid rgba(231,222,210,0.9);
-  background:linear-gradient(180deg, rgba(255,250,243,0.92), rgba(255,250,243,0.55));
+  border-bottom:1px solid var(--line);
+  background:
+    radial-gradient(1200px 380px at 10% -20%, rgba(22,163,74,0.08), transparent 55%),
+    radial-gradient(900px 320px at 95% -25%, rgba(17,24,39,0.06), transparent 50%),
+    #fbfbfa;
 }
 .hero{
   max-width:var(--max);
   margin:0 auto;
-  padding:34px 18px 22px;
+  padding:34px 18px 24px;
   display:grid;
   gap:10px;
+  text-align:left;
 }
 .hero h1{
   margin:0;
   font-size:30px;
   letter-spacing:-0.03em;
+  line-height:1.18;
 }
-.sub{margin:0; color:var(--muted); max-width:74ch; font-size:14px}
+.sub{margin:0; color:var(--muted); max-width:78ch; font-size:14px}
 
 main{
   max-width:var(--max);
   margin:0 auto;
-  padding:22px 18px 44px;
+  padding:22px 18px 46px;
 }
 .card{
-  background:rgba(255,255,255,0.92);
+  background:var(--surface);
   border:1px solid var(--line);
   border-radius:var(--radius);
   padding:18px;
   box-shadow:var(--shadow);
 }
 .img{
-  margin-top:12px;
+  margin-top:14px;
   border-radius:14px;
   overflow:hidden;
-  border:1px solid rgba(231,222,210,0.9);
-  background:#fff;
+  border:1px solid var(--line);
+  background:var(--soft);
+  box-shadow:var(--shadow2);
 }
-.img img{display:block; width:100%; height:auto; transform:scale(1.01)}
+.img img{display:block; width:100%; height:auto}
+
 h2{
   margin:18px 0 8px;
   font-size:16px;
@@ -153,41 +158,7 @@ h2{
 }
 p{margin:0 0 10px}
 .muted{color:var(--muted); font-size:13px}
-hr{border:0; border-top:1px solid rgba(231,222,210,0.9); margin:18px 0}
-
-.callout{
-  margin:16px 0 4px;
-  padding:14px 14px 12px;
-  border-radius:14px;
-  border:1px solid rgba(47,111,78,0.25);
-  background:linear-gradient(180deg, rgba(47,111,78,0.06), rgba(47,111,78,0.03));
-}
-.callout .kicker{
-  font-weight:900;
-  font-size:12px;
-  letter-spacing:0.02em;
-  color:var(--accent2);
-  text-transform:uppercase;
-  margin:0 0 6px;
-}
-.callout p{margin:0 0 8px}
-.callout .row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  flex-wrap:wrap;
-}
-.callout .big{
-  font-weight:950;
-  letter-spacing:-0.02em;
-  font-size:16px;
-}
-.callout .note{
-  color:var(--muted);
-  font-size:12px;
-  margin:0;
-}
+hr{border:0; border-top:1px solid var(--line); margin:18px 0}
 
 .city-grid{
   list-style:none;
@@ -201,24 +172,49 @@ hr{border:0; border-top:1px solid rgba(231,222,210,0.9); margin:18px 0}
   display:block;
   text-decoration:none;
   color:var(--ink);
-  background:rgba(255,255,255,0.92);
+  background:#fff;
   border:1px solid var(--line);
   border-radius:14px;
-  padding:11px 12px;
+  padding:12px 12px;
   font-weight:800;
   font-size:14px;
   box-shadow:0 10px 24px rgba(17,24,39,0.05);
-  transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
 }
 .city-grid a:hover{
   transform:translateY(-1px);
-  border-color:#d9cbb9;
-  box-shadow:0 14px 28px rgba(17,24,39,0.07);
+  box-shadow:0 14px 28px rgba(17,24,39,0.08);
 }
 
+.callout{
+  margin:16px 0 12px;
+  padding:14px 14px;
+  border-radius:14px;
+  border:1px solid rgba(22,163,74,0.22);
+  background:linear-gradient(180deg, rgba(22,163,74,0.08), rgba(22,163,74,0.03));
+}
+.callout-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:900;
+  letter-spacing:-0.01em;
+  margin:0 0 6px;
+}
+.badge{
+  display:inline-block;
+  padding:3px 10px;
+  border-radius:999px;
+  background:rgba(22,163,74,0.14);
+  border:1px solid rgba(22,163,74,0.22);
+  color:var(--ink);
+  font-size:12px;
+  font-weight:900;
+}
+.callout p{margin:0; color:var(--muted); font-size:13px}
+
 footer{
-  border-top:1px solid rgba(231,222,210,0.9);
-  background:linear-gradient(180deg, rgba(255,250,243,0.55), rgba(255,250,243,0.9));
+  border-top:1px solid var(--line);
+  background:#fbfbfa;
 }
 .footer-inner{
   max-width:var(--max);
@@ -228,7 +224,7 @@ footer{
   gap:10px;
   text-align:left;
 }
-.footer-inner h2{margin:0; font-size:18px; letter-spacing:-0.02em}
+.footer-inner h2{margin:0; font-size:18px}
 .footer-links{display:flex; gap:12px; flex-wrap:wrap}
 .footer-links a{color:var(--muted); text-decoration:none; font-size:13px; padding:6px 0}
 .small{color:var(--muted); font-size:12px; margin-top:8px}
@@ -238,14 +234,14 @@ footer{
   <div class="topbar">
     <div class="topbar-inner">
       <a class="brand" href="/">Wasp Nest Removal Company</a>
-      <nav class="nav" aria-label="Primary navigation"><a href="/" aria-current="page">Home</a><a href="/cost/">Cost</a><a href="/how-to/">How-To</a><a class="btn btn-ghost" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a></nav>
+      <nav class="nav" aria-label="Primary navigation"><a href="/" aria-current="page">Home</a><a href="/cost/">Cost</a><a href="/how-to/">How-To</a><a class="btn" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a></nav>
     </div>
   </div>
 
 <header>
   <div class="hero">
     <h1>Wasp Nest/Wasp Hive Removal &amp; Wasp Control Services in San Diego, CA</h1>
-    <p class="sub">Same core guide, plus a quick local note and pricing context.</p>
+    <p class="sub">Same core guide, plus a quick local note and a typical cost range.</p>
   </div>
 </header>
 <main>
@@ -293,12 +289,14 @@ footer{
   If you keep seeing wasps returning to the same spot, you’re missing the actual entrance.
 </p>
 <div class="callout" role="note" aria-label="Typical cost range">
-  <p class="kicker">Typical cost range in San Diego, CA</p>
-  <div class="row">
-    <div class="big">$150–$450 for one nest (common range)</div>
-    <a class="btn btn-primary" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a>
+  <div class="callout-title">
+    <span class="badge">Typical range</span>
+    <span>$150–$450 for one nest</span>
   </div>
-  <p class="note">Final pricing depends on access, nest location, and time on site.</p>
+  <p>
+    In San Diego, CA, most pricing comes down to access and where the nest is located.
+    If you want a fast, no-pressure estimate, use the “Get Free Estimate” button above.
+  </p>
 </div>
 <hr />
 <h2>Wasp Nest Removal Cost</h2>
@@ -315,7 +313,7 @@ footer{
     <h2>Next steps</h2>
     <p class="sub">Ready to move forward? Request a free quote.</p>
     <div>
-      <a class="btn btn-primary" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a>
+      <a class="btn" href="mailto:hello@example.com?subject=Free%20Quote%20Request">Get Free Estimate</a>
     </div>
     <div class="footer-links">
       <a href="/">Home</a>
