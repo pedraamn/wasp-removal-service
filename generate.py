@@ -160,60 +160,56 @@ def copy_site_image(*, src_dir: Path, out_dir: Path, filename: str) -> None:
 
 
 # -----------------------
-# THEME (pure CSS, minimal, fast — upgraded look)
+# THEME (pure CSS, minimal, fast)
+# Warmer, home-services palette + softer motion (no JS)
 # -----------------------
 CSS = """
 :root{
-  /* Core */
-  --bg: #0b1220;
-  --bg2:#070b14;
-  --surface: rgba(255,255,255,0.06);
-  --surface2: rgba(255,255,255,0.085);
-  --card: rgba(255,255,255,0.075);
-  --ink: #e8eefc;
-  --muted: rgba(232,238,252,0.72);
-  --muted2: rgba(232,238,252,0.62);
-  --line: rgba(232,238,252,0.12);
+  /* Warm, home-services feel */
+  --bg:#fbf7f1;        /* warm off-white */
+  --surface:#ffffff;
+  --ink:#1f2937;       /* slate-800 */
+  --muted:#5b6472;     /* softer slate */
+  --line:#eadfce;      /* warm border */
+  --shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
 
-  /* Brand accent */
-  --accent: #38bdf8;
-  --accent2:#22c55e;
-  --accent3:#a78bfa;
+  /* Primary brand accent (sage/green) */
+  --accent:#2f6f4e;
+  --accent2:#24563c;
 
-  /* Layout */
-  --max: 980px;
-  --radius: 16px;
-  --radius2: 22px;
-  --shadow: 0 16px 45px rgba(0,0,0,0.40);
-  --shadow2: 0 10px 26px rgba(0,0,0,0.28);
+  /* Subtle highlight */
+  --tint:#f2efe9;
+  --tint2:#f7f1e6;
+
+  --max:980px;
+  --radius:16px;
 }
 
 *{box-sizing:border-box}
-html{color-scheme:dark}
+html{color-scheme:light}
 body{
   margin:0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
   color:var(--ink);
   background:
-    radial-gradient(900px 450px at 18% -10%, rgba(56,189,248,0.22), transparent 60%),
-    radial-gradient(800px 420px at 92% 0%, rgba(167,139,250,0.18), transparent 55%),
-    radial-gradient(900px 520px at 40% 110%, rgba(34,197,94,0.12), transparent 60%),
-    linear-gradient(180deg, var(--bg), var(--bg2));
+    radial-gradient(1200px 600px at 10% -10%, rgba(47,111,78,0.10), rgba(47,111,78,0.00) 55%),
+    radial-gradient(900px 500px at 95% -20%, rgba(139,94,60,0.10), rgba(139,94,60,0.00) 60%),
+    var(--bg);
   line-height:1.6;
 }
 
 a{color:inherit}
-a:focus{outline:2px solid var(--accent); outline-offset:3px}
+a:focus{outline:2px solid var(--accent); outline-offset:2px}
 
-/* Topbar */
 .topbar{
   position:sticky;
   top:0;
   z-index:50;
-  background: rgba(7,11,20,0.70);
-  backdrop-filter: blur(10px);
+  background:rgba(251,247,241,0.92);
+  backdrop-filter:saturate(140%) blur(10px);
   border-bottom:1px solid var(--line);
 }
+
 .topbar-inner{
   max-width:var(--max);
   margin:0 auto;
@@ -223,148 +219,105 @@ a:focus{outline:2px solid var(--accent); outline-offset:3px}
   justify-content:space-between;
   gap:14px;
 }
+
 .brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
   font-weight:900;
   letter-spacing:-0.02em;
   text-decoration:none;
-  white-space:nowrap;
-}
-.brand-mark{
-  width:26px;
-  height:26px;
-  border-radius:9px;
-  background:
-    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.30), transparent 45%),
-    linear-gradient(135deg, rgba(56,189,248,0.85), rgba(167,139,250,0.65));
-  box-shadow: 0 10px 26px rgba(0,0,0,0.30);
-  border:1px solid rgba(255,255,255,0.18);
-}
-.nav{
   display:flex;
   align-items:center;
   gap:10px;
+}
+
+.brand:before{
+  content:"";
+  width:12px;
+  height:12px;
+  border-radius:999px;
+  background:linear-gradient(180deg, var(--accent), var(--accent2));
+  box-shadow:0 6px 14px rgba(47,111,78,0.18);
+}
+
+.nav{
+  display:flex;
+  align-items:center;
+  gap:12px;
   flex-wrap:wrap;
   justify-content:flex-end;
 }
+
 .nav a{
   text-decoration:none;
   font-size:13px;
   color:var(--muted);
-  padding:8px 10px;
-  border-radius:12px;
+  padding:7px 10px;
+  border-radius:999px;
   border:1px solid transparent;
-  transition: transform .14s ease, background .14s ease, border-color .14s ease, color .14s ease;
-}
-.nav a:hover{
-  color:var(--ink);
-  background: rgba(255,255,255,0.06);
-  border-color: rgba(255,255,255,0.10);
-  transform: translateY(-1px);
-}
-.nav a[aria-current="page"]{
-  color:var(--ink);
-  background: rgba(255,255,255,0.08);
-  border-color: rgba(255,255,255,0.14);
+  transition:transform .12s ease, background .12s ease, border-color .12s ease, color .12s ease;
 }
 
-/* Buttons */
+.nav a:hover{
+  background:var(--tint2);
+  border-color:var(--line);
+  color:var(--ink);
+  transform:translateY(-1px);
+}
+
+.nav a[aria-current="page"]{
+  color:var(--ink);
+  background:var(--tint2);
+  border:1px solid var(--line);
+}
+
 .btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
   gap:8px;
   padding:10px 13px;
-  background:
-    linear-gradient(135deg, rgba(56,189,248,0.95), rgba(167,139,250,0.75));
-  color:#04101f;
-  border-radius:13px;
+  background:linear-gradient(180deg, var(--accent), var(--accent2));
+  color:#fff;
+  border-radius:999px;
   text-decoration:none;
   font-weight:900;
   font-size:13px;
-  border:1px solid rgba(255,255,255,0.22);
-  box-shadow: 0 14px 30px rgba(0,0,0,0.35);
-  transition: transform .14s ease, box-shadow .14s ease, filter .14s ease;
+  border:1px solid rgba(255,255,255,0.18);
+  box-shadow:0 12px 22px rgba(47,111,78,0.16);
+  transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
 }
-.btn:hover{ transform: translateY(-1px); filter: brightness(1.02); box-shadow: 0 18px 40px rgba(0,0,0,0.42); }
-.btn:focus{ outline:2px solid var(--accent); outline-offset:3px; }
 
-/* Hero */
+.btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 14px 26px rgba(47,111,78,0.20);
+  filter:saturate(110%);
+}
+
+.btn:focus{outline:2px solid var(--accent2); outline-offset:2px}
+
 header{
   border-bottom:1px solid var(--line);
   background:
-    radial-gradient(850px 260px at 12% 10%, rgba(56,189,248,0.18), transparent 60%),
-    radial-gradient(700px 280px at 96% 25%, rgba(167,139,250,0.14), transparent 58%),
-    rgba(255,255,255,0.02);
+    linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0.00)),
+    var(--bg);
 }
+
 .hero{
   max-width:var(--max);
   margin:0 auto;
-  padding:30px 18px 22px;
+  padding:34px 18px 24px;
   display:grid;
-  gap:12px;
-}
-.kicker{
-  display:flex;
-  align-items:center;
   gap:10px;
-  flex-wrap:wrap;
+  text-align:left;
 }
-.pill{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:6px 11px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:900;
-  background: rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.14);
-  color:var(--muted);
-}
-.pill-dot{
-  width:8px;
-  height:8px;
-  border-radius:99px;
-  background: linear-gradient(135deg, var(--accent), var(--accent3));
-  box-shadow: 0 0 0 3px rgba(56,189,248,0.12);
-}
+
 .hero h1{
   margin:0;
   font-size:30px;
   letter-spacing:-0.03em;
-  line-height:1.14;
+  line-height:1.15;
 }
-.sub{
-  margin:0;
-  color:var(--muted);
-  max-width:76ch;
-  font-size:14px;
-}
-.hero-cta{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:6px;
-}
-.ghost{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:10px 12px;
-  border-radius:13px;
-  border:1px solid rgba(255,255,255,0.14);
-  background: rgba(255,255,255,0.04);
-  color:var(--ink);
-  text-decoration:none;
-  font-weight:800;
-  font-size:13px;
-  transition: transform .14s ease, background .14s ease, border-color .14s ease;
-}
-.ghost:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.18); }
+
+.sub{margin:0; color:var(--muted); max-width:74ch; font-size:14px}
 
 main{
   max-width:var(--max);
@@ -372,25 +325,43 @@ main{
   padding:22px 18px 46px;
 }
 
-/* Card / content */
 .card{
-  background: linear-gradient(180deg, rgba(255,255,255,0.085), rgba(255,255,255,0.05));
-  border:1px solid rgba(255,255,255,0.14);
-  border-radius:var(--radius2);
+  background:rgba(255,255,255,0.92);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
   padding:18px;
-  box-shadow: var(--shadow);
+  box-shadow:var(--shadow);
 }
-.card-inner{
-  padding-top:10px;
+
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:5px 11px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+  background:var(--tint2);
+  border:1px solid var(--line);
+  color:var(--muted);
 }
+
+.pill:before{
+  content:"";
+  width:7px;
+  height:7px;
+  border-radius:999px;
+  background:var(--accent);
+}
+
 .img{
   margin-top:12px;
   border-radius:14px;
   overflow:hidden;
-  border:1px solid rgba(255,255,255,0.14);
-  background: rgba(255,255,255,0.03);
-  box-shadow: var(--shadow2);
+  border:1px solid var(--line);
+  background:#f6f1e7;
 }
+
 .img img{display:block; width:100%; height:auto}
 
 h2{
@@ -398,108 +369,130 @@ h2{
   font-size:16px;
   letter-spacing:-0.01em;
 }
-p{margin:0 0 10px}
-.muted{color:var(--muted2); font-size:13px}
-hr{
-  border:0;
-  border-top:1px solid rgba(255,255,255,0.12);
-  margin:18px 0;
-}
 
-/* City list */
+p{margin:0 0 10px}
+
+.muted{color:var(--muted); font-size:13px}
+
+hr{border:0; border-top:1px solid var(--line); margin:18px 0}
+
 .city-grid{
   list-style:none;
   padding:0;
   margin:10px 0 0;
   display:grid;
   gap:10px;
-  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
 }
+
 .city-grid a{
   display:block;
   text-decoration:none;
   color:var(--ink);
-  background: rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.12);
+  background:rgba(255,255,255,0.96);
+  border:1px solid var(--line);
   border-radius:14px;
   padding:11px 12px;
   font-weight:800;
   font-size:14px;
-  transition: transform .14s ease, background .14s ease, border-color .14s ease;
-}
-.city-grid a:hover{
-  transform: translateY(-1px);
-  background: rgba(255,255,255,0.06);
-  border-color: rgba(255,255,255,0.18);
+  box-shadow:0 10px 18px rgba(17,24,39,0.05);
+  transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
 }
 
-/* Conversion callout (city pages) */
-.callout{
-  margin-top:14px;
-  padding:12px 12px;
-  border-radius:16px;
-  border:1px solid rgba(56,189,248,0.22);
-  background:
-    radial-gradient(500px 200px at 10% 20%, rgba(56,189,248,0.18), transparent 55%),
-    rgba(255,255,255,0.04);
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:12px;
+.city-grid a:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 22px rgba(17,24,39,0.07);
+  background:#fff;
 }
+
+/* High-impact conversion callout (used on city pages) */
+.callout{
+  margin:14px 0 6px;
+  padding:14px 14px;
+  border-radius:14px;
+  border:1px solid rgba(47,111,78,0.22);
+  background:
+    linear-gradient(180deg, rgba(47,111,78,0.10), rgba(47,111,78,0.04));
+}
+
 .callout strong{
   display:block;
   font-size:13px;
   letter-spacing:-0.01em;
-  margin-bottom:2px;
+  margin-bottom:6px;
 }
-.callout p{
-  margin:0;
+
+.callout .row{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.callout .range{
+  font-weight:950;
+  font-size:18px;
+  letter-spacing:-0.02em;
+}
+
+.callout .note{
   color:var(--muted);
   font-size:13px;
+  max-width:70ch;
 }
-.callout .btn{
-  white-space:nowrap;
-  box-shadow:none;
-  border-color: rgba(255,255,255,0.22);
+
+.callout .cta{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  text-decoration:none;
+  font-weight:950;
+  font-size:13px;
+  padding:9px 12px;
+  border-radius:999px;
+  color:var(--accent2);
+  background:rgba(255,255,255,0.7);
+  border:1px solid rgba(47,111,78,0.22);
+  transition:transform .12s ease, background .12s ease;
+}
+
+.callout .cta:hover{
+  transform:translateY(-1px);
+  background:rgba(255,255,255,0.92);
 }
 
 /* Footer */
 footer{
   border-top:1px solid var(--line);
-  background: rgba(255,255,255,0.02);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.45), rgba(255,255,255,0.00)),
+    var(--bg);
 }
+
 .footer-inner{
   max-width:var(--max);
   margin:0 auto;
-  padding:28px 18px;
+  padding:26px 18px;
   display:grid;
-  gap:12px;
+  gap:10px;
+  text-align:left;
 }
-.footer-cta{
-  background:
-    radial-gradient(700px 220px at 12% 10%, rgba(34,197,94,0.14), transparent 55%),
-    radial-gradient(700px 240px at 92% 30%, rgba(56,189,248,0.14), transparent 55%),
-    rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.12);
-  border-radius:18px;
-  padding:16px;
-  box-shadow: var(--shadow2);
-}
-.footer-cta h2{margin:0 0 6px; font-size:18px}
-.footer-links{display:flex; gap:12px; flex-wrap:wrap}
-.footer-links a{color:var(--muted); text-decoration:none; font-size:13px; padding:6px 0}
-.footer-links a:hover{color:var(--ink)}
-.small{color:var(--muted2); font-size:12px; margin-top:6px}
 
-@media (max-width:520px){
-  .hero h1{font-size:26px}
-  .topbar-inner{gap:10px}
-  .nav{gap:6px}
-  .nav a{padding:7px 9px}
-  .callout{flex-direction:column; align-items:stretch}
-  .callout .btn{width:100%}
+.footer-inner h2{margin:0; font-size:18px}
+
+.footer-links{display:flex; gap:12px; flex-wrap:wrap}
+
+.footer-links a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:13px;
+  padding:6px 0;
 }
+
+.footer-links a:hover{color:var(--ink)}
+
+.small{color:var(--muted); font-size:12px; margin-top:8px}
 """.strip()
 
 
@@ -522,6 +515,7 @@ def nav_html(current: str) -> str:
 
 
 def base_html(*, title: str, canonical_path: str, description: str, current_nav: str, body: str) -> str:
+    # title == h1 is enforced by callers; keep this thin.
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -537,10 +531,7 @@ def base_html(*, title: str, canonical_path: str, description: str, current_nav:
 <body>
   <div class="topbar">
     <div class="topbar-inner">
-      <a class="brand" href="/">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span>{esc(CONFIG.brand_name)}</span>
-      </a>
+      <a class="brand" href="/">{esc(CONFIG.brand_name)}</a>
       {nav_html(current_nav)}
     </div>
   </div>
@@ -550,24 +541,12 @@ def base_html(*, title: str, canonical_path: str, description: str, current_nav:
 """
 
 
-def header_block(*, h1: str, sub: str, pill: str, show_secondary_cta: bool = True) -> str:
-    secondary = (
-        f'<a class="ghost" href="/cost/">See typical pricing</a>'
-        if show_secondary_cta
-        else ""
-    )
+def header_block(*, h1: str, sub: str) -> str:
     return f"""
 <header>
   <div class="hero">
-    <div class="kicker">
-      <span class="pill"><span class="pill-dot" aria-hidden="true"></span>{esc(pill)}</span>
-    </div>
     <h1>{esc(h1)}</h1>
     <p class="sub">{esc(sub)}</p>
-    <div class="hero-cta">
-      <a class="btn" href="{esc(CONFIG.cta_href)}">{esc(CONFIG.cta_text)}</a>
-      {secondary}
-    </div>
   </div>
 </header>
 """.rstrip()
@@ -577,14 +556,11 @@ def footer_block() -> str:
     return f"""
 <footer>
   <div class="footer-inner">
-    <div class="footer-cta">
-      <h2>Next steps</h2>
-      <p class="sub">Ready to move forward? Request a free quote.</p>
-      <div style="margin-top:10px">
-        <a class="btn" href="{esc(CONFIG.cta_href)}">{esc(CONFIG.cta_text)}</a>
-      </div>
+    <h2>Next steps</h2>
+    <p class="sub">Ready to move forward? Request a free quote.</p>
+    <div>
+      <a class="btn" href="{esc(CONFIG.cta_href)}">{esc(CONFIG.cta_text)}</a>
     </div>
-
     <div class="footer-links">
       <a href="/">Home</a>
       <a href="/cost/">Cost</a>
@@ -596,19 +572,20 @@ def footer_block() -> str:
 """.rstrip()
 
 
-def page_shell(*, h1: str, sub: str, pill: str, inner_html: str, show_secondary_cta: bool = True) -> str:
+def page_shell(*, h1: str, sub: str, pill: str, inner_html: str) -> str:
+    # Single image used everywhere. Since we copy picture.png into /public/,
+    # it can be referenced as "/picture.png" from any route.
     img_src = f"/{CONFIG.image_filename}"
     return (
-        header_block(h1=h1, sub=sub, pill=pill, show_secondary_cta=show_secondary_cta)
+        header_block(h1=h1, sub=sub)
         + f"""
 <main>
   <section class="card">
+    <div class="pill">{esc(pill)}</div>
     <div class="img">
       <img src="{esc(img_src)}" alt="Service image" loading="lazy" />
     </div>
-    <div class="card-inner">
-      {inner_html}
-    </div>
+    {inner_html}
   </section>
 </main>
 """
@@ -742,24 +719,10 @@ def howto_sections_html() -> str:
 """.rstrip()
 
 
-def cost_callout_html(*, city: str, state: str) -> str:
-    return f"""
-<div class="callout" role="note" aria-label="Typical pricing callout">
-  <div>
-    <strong>Typical cost range in {esc(city)}, {esc(state)}</strong>
-    <p>${CONFIG.cost_low}–${CONFIG.cost_high} for one nest in many homes. Access &amp; nest location drive the final total.</p>
-  </div>
-  <div>
-    <a class="btn" href="{esc(CONFIG.cta_href)}">{esc(CONFIG.cta_text)}</a>
-  </div>
-</div>
-""".rstrip()
-
-
 # -----------------------
 # PAGE FACTORY
 # -----------------------
-def make_page(*, h1: str, canonical: str, description: str, nav_key: str, pill: str, sub: str, inner: str, show_secondary_cta: bool = True) -> str:
+def make_page(*, h1: str, canonical: str, description: str, nav_key: str, pill: str, sub: str, inner: str) -> str:
     h1 = clamp_title(h1, 70)
     title = h1  # enforce title == h1
     return base_html(
@@ -767,7 +730,7 @@ def make_page(*, h1: str, canonical: str, description: str, nav_key: str, pill: 
         canonical_path=canonical,
         description=clamp_title(description, 155),
         current_nav=nav_key,
-        body=page_shell(h1=h1, sub=sub, pill=pill, inner_html=inner, show_secondary_cta=show_secondary_cta),
+        body=page_shell(h1=h1, sub=sub, pill=pill, inner_html=inner),
     )
 
 
@@ -777,16 +740,11 @@ def homepage_html() -> str:
         f'<li><a href="{esc("/" + city_state_slug(city, state) + "/")}">{esc(city)}, {esc(state)}</a></li>'
         for city, state in CITIES
     )
-
-    # IMPORTANT for SEO rule: keep H2 set identical to city pages (H2_SHARED only).
-    # So this section uses a plain paragraph label instead of an H2.
     inner = (
         shared_sections_html()
         + """
 <hr />
-<p class="muted" style="margin-bottom:10px; font-weight:900; letter-spacing:-0.01em;">
-  Choose your city
-</p>
+<h2>Choose your city</h2>
 <p class="muted">Select a city page for the same guide with a light local line.</p>
 <ul class="city-grid">
 """
@@ -808,21 +766,36 @@ def homepage_html() -> str:
         pill="Main service page",
         sub="How removal works, what prevents repeat activity, and when to call help.",
         inner=inner,
-        show_secondary_cta=True,
     )
 
 
 def city_page_html(city: str, state: str) -> str:
-    # Keep H2 set identical to homepage: H2_SHARED only.
-    # Conversion element: subtle callout box (no extra headings).
+    # High-impact callout box for conversion (subtle, warm)
+    callout = f"""
+<div class="callout" role="note" aria-label="Typical cost range">
+  <strong>Typical cost range in {esc(city)}, {esc(state)}</strong>
+  <div class="row">
+    <div class="range">${CONFIG.cost_low}–${CONFIG.cost_high}</div>
+    <a class="cta" href="{esc(CONFIG.cta_href)}">{esc(CONFIG.cta_text)}</a>
+  </div>
+  <p class="note">
+    Access and nest location drive most pricing. For a full breakdown, see the <a href="/cost/">cost page</a>.
+  </p>
+</div>
+""".rstrip()
+
     inner = (
-        cost_callout_html(city=city, state=state)
+        shared_sections_html(local_line=f"Serving {city}, {state}.")
         + "\n"
-        + shared_sections_html(local_line=f"Serving {city}, {state}.")
-        + f"""
+        + callout
+        + """
 <hr />
+<h2>Wasp Nest Removal Cost</h2>
 <p class="muted">
-  Want the full breakdown? See the <a href="/cost/">cost page</a> for the factors that move pricing.
+  Typical installed range for one nest often falls around """
+        + f"${CONFIG.cost_low}–${CONFIG.cost_high}"
+        + """. Access and nest location drive most pricing.
+  See the <a href="/cost/">cost page</a> for details.
 </p>
 """
     )
@@ -833,9 +806,8 @@ def city_page_html(city: str, state: str) -> str:
         description=f"Wasp nest removal and wasp control guide with local context for {city}, {state}.",
         nav_key="home",
         pill="City service page",
-        sub="Same core guide, plus a quick local note and a pricing snapshot.",
+        sub="Same core guide, plus a quick local note and cost pointer.",
         inner=inner,
-        show_secondary_cta=True,
     )
 
 
@@ -848,7 +820,6 @@ def cost_page_html() -> str:
         pill="Cost page",
         sub="Simple ranges and the factors that usually move the price.",
         inner=cost_sections_html(),
-        show_secondary_cta=False,
     )
 
 
@@ -861,7 +832,6 @@ def howto_page_html() -> str:
         pill="How-to page",
         sub="A practical guide that prioritizes safety and reduces repeat activity.",
         inner=howto_sections_html(),
-        show_secondary_cta=False,
     )
 
 
